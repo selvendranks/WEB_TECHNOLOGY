@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "colors": "^1.4.0",
+    "give-me-a-joke": "^0.5.1"
+  },
+  "name": "learning",
+  "version": "1.0.0",
+  "description": "basic module ",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

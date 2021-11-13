@@ -1,0 +1,149 @@
+body {
+
+    color: black;
+    font-family: 'Varela Round', sans-serif;
+    /* background : no-repeat center/20% url , color.. */
+    background-image: url(https://images.unsplash.com/photo-1560015534-cee980ba7e13?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+label {
+    margin: 2px;
+    ;
+}
+
+h1+p {
+    
+    font-size: 10px;
+    background-color: rgb(96, 202, 96);
+}
+
+#submit {
+    transform-origin: top right;
+    transform: rotate(-20deg);
+    background-color: rgb(97, 219, 97);
+    border-radius: 1em;
+    border-style: outset;
+    border-width: 0.1em;
+}
+
+.donk p {
+    color: teal;
+}
+
+.donk>a {
+    color: magenta;
+}
+
+input[type="text"] {
+    color: rgb(83, 68, 0);
+    width: 80px;
+}
+
+input[type="password"] {
+    color: maroon;
+    width: 70px;
+    margin: 2px;
+}
+
+a[href*="tig"] {
+    color: tomato;
+}
+
+#submit:hover {
+    background-color: rgb(186, 248, 186);
+    font-size: 14px;
+}
+
+p::first-letter {
+    font-size: 50px;
+}
+
+th::first-letter {
+    font-size: 30px;
+}
+
+p::selection {
+    background-color: rgb(255, 156, 117);
+}
+
+#gaping, #gaping3 {
+    transform: rotate(-15deg);
+    transform: rotateX();
+    color: rgba(0, 0, 0, 0.8);
+    width: 250px;
+    padding: 10px 10px;
+    height: 200px;
+    background-image: url(https://images.unsplash.com/photo-1557672172-298e090bd0f1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80);
+    border: dashed;
+    border: 5px dashed blue;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    margin-left: 20px;
+    display: inline-block;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 1em;
+    transition: 0.5s;
+}
+
+#gaping3:hover {
+    background-color: rgba(255, 85, 85, 0.9);
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+#gaping:hover {
+    background-color: #ff5050e6;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+#gaping3 {
+    position: relative;
+    bottom: 12px;
+}
+
+body {
+    margin: 0px;
+}
+
+#gaping span {
+    display: inline-block;
+    width: 50px;
+    height: 20px;
+    background-color: rgb(255, 0, 128);
+    text-align: center;
+    border: 2px dashed black;
+    margin: 3px;
+    padding: 0px 2px;
+    font-size: 1em;
+}
+
+#animal-list {
+    font-size: 25px;
+}
+
+#animals {
+    font-size: 0.75em;
+}
+
+#donkey-type {
+    font-size: 0.75em;
+}
+
+#transition {
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    border: 5px solid blue;
+}
+
+#transition:hover {
+    background-color: blue;
+    border-color: red;
+}

@@ -1,0 +1,25 @@
+h1{
+    color: red;
+}
+.col{
+
+    margin-top: 20px;
+}
+
+#image{
+
+    margin-bottom: 20px;
+}
+
+.mar{
+      margin: 10px;
+}
+
+/* .align-items-center{
+
+    background-color: rgba(155, 104, 70, 0.473);
+} */
+
+img{
+    margin: 1% ;
+}

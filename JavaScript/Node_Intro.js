@@ -16,3 +16,15 @@
 // catch(e){
 //     console.log("sorry error",e);
 // }
+
+/////////////////////////////////////creating export functions for node_intro2.js
+
+const square = (arg)=>{
+    return arg*arg;
+} 
+
+const PI = 3.14;
+
+exports.square = square;
+exports.PI = PI;
+

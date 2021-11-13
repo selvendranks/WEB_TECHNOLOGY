@@ -1,5 +1,5 @@
 //////////////////////////////////////acessing the function other files (from Node_Intro.js)
 
-const math = require('./math');
-console.log(math.square(4));
-console.log(math.PI);
+const maths = require('./Node_Intro');
+console.log(maths.square(4));
+console.log(maths.PI);

@@ -1,0 +1,11 @@
+<%- include("partials") %> 
+<body>
+    <h3>name is <%= data.name %> </h3>
+    <% for(let post of data.posts){ %>
+        <h3><%= post.title  %> <b>-----</b> <%= post.author  %> </h3>
+        <% if(post.img){%>
+                <img src=<%= post.img %> alt="image not found">
+        <%} %> 
+    <% } %> 
+</body>
+</html>

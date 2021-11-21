@@ -1,0 +1,6 @@
+show dbs  //*shows all databases
+use animalshelter  //* creates database named animalshelter
+db //* shows the current database
+db.dogs.insertOne({name:"coder",age:15}) //*creates an object named dogs if not present and inserts one item
+show collections  //*displays all the objects in the database
+db.dogs.insert([{name:"doh",age:5},{name:"soh",age:6}]) //*adds array of items into the object

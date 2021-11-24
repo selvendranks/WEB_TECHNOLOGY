@@ -1,6 +1,28 @@
 show dbs  //*shows all databases
 use animalshelter  //* creates database named animalshelter
 db //* shows the current database
-db.dogs.insertOne({name:"coder",age:15}) //*creates an object named dogs if not present and inserts one item
+db.dogs.insertOne({name:"coder",age:15,breed:'dober'}) //*creates an object named dogs if not present and inserts one item
 show collections  //*displays all the objects in the database
-db.dogs.insert([{name:"doh",age:5},{name:"soh",age:6}]) //*adds array of items into the object
+db.dogs.insert([{name:"doh",age:5,breed:'rot'},{name:"soh",age:6,breed:'german'}]) //*adds array of items into the object
+db.dogs.find() //*return all items
+db.dogs.find({name:"doh"}) //*returns items which has name doh
+db.dogs.findOne({name:"doh"}) //*returns only one item even if multiple items exists
+db.dogs.updateOne({name:'doh'},{$set:{age:15,breed:'lab'}}) //*updates age as 15 on a single item having name doh  /*if item ele dosent exists it creates one
+db.doga.updateMany({name:'doh'},($set:{age:17})) //updates age as 17 on all items having name doh  /*if item ele dosent exists it creates one
+db.dogs.deleteOne({name:'doh'}) //*delete one item name doh
+db.dogs.deleteMany({breed:'german'}) //*delete all item with breed german
+db.dogs.deleteMany({}) //*deletes all items
+
+/*extra methods*/
+
+db.dogs.find({age:{$gt:3}}) //return items whose age greater than 3
+db.dogs.find({age:{$gte:3}}) //return items whose age greater than or equls 3
+db.dogs.find({age:{$in :[5,7]}}) //return items whose age is either 5 or 7
+db.dogs.find({breed:($ne : 'german')}) //returns items whose breed not equals german
+db.dogs.find({age:{$nin :[5,7]}}) //return items whose age is neither 5 nor 7
+db.dogs.find({$or: [{breed :'german'},{age:{$lte: 4}}]}) //returns items if breed is german or age less than or equals 4
+db.dogs.find({$and: [{breed :'german'},{age:{$lt: 4}}]}) //returns items if breed is german and age less than  4
+
+db.dogs.findOneAndUpdate({breed:'german'},{age:4}) //updates and returns the original value
+db.dogs.findOneAndUpdate({breed:'german'},{age:4},{new:true}) //updates and returns the modified new value
+db.dogs.findOneAndDelete({year:{$gt:4}})// deletes and returns the deleted value

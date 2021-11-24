@@ -1,4 +1,4 @@
-const { kMaxLength } = require('buffer');
+
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/shopApp')
 .then(()=>{

@@ -20,9 +20,16 @@ mongoose.connect('mongodb://localhost:27017/farmStands')
 categories = ['fruit','vegetable','dairy'];
 
 app.get('/products',async (req,res)=>{
+    const {category} = req.query;
+    if(category){
+         const products = await Product.find({category:category});
+         res.render('products/index.ejs',{products,category});
+
+    }
+    else{
     const products = await Product.find({})
-    console.log(products);
-    res.render('products/index.ejs',{products});
+    res.render('products/index.ejs',{products,category: 'All'});
+    }
 })
 
 app.get('/products/new',(req,res)=>{
@@ -36,12 +43,16 @@ app.post('/products',async (req,res)=>{
     console.log(newproduct);
     res.redirect(`/products/${newproduct._id}`)
 })
-
+app.delete('/products/:id',async (req,res)=>{
+    const {id} = req.params;
+    const product = await Product.findByIdAndDelete(id);
+    res.redirect('/products');
+})
 
 app.get('/products/:id/edit',async (req,res)=>{
     const {id} = req.params;
     const foundProduct = await Product.findById(id);
-    res.render('products/edit_product.ejs',{foundProduct});
+    res.render('products/edit_product.ejs',{foundProduct,categories});
 })
 app.put('/products/:id',async(req,res)=>{
     const {id} = req.params;

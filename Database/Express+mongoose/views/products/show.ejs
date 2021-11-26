@@ -10,9 +10,12 @@
     <h1><%= product.name %> </h1>
     <ul>
         <li>Price: <%= product.price %> </li>
-        <li>category: <%= product.category %> </li>
+        <li>Categoty:<a href="http://localhost:1000/products?category=<%= product.category %> "><%= product.category %> </a></li>
     </ul>
     <a href="http://localhost:1000/products/<%= product.id %>/edit ">Edit-product</a>
     <a href="http://localhost:1000/products">All Products</a>
+    <form action="http://localhost:1000/products/<%=product.id%>?_method=DELETE" method="POST">
+      <button>Delete</button>
+    </form>
 </body>
 </html>

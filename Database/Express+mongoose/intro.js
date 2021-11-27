@@ -12,11 +12,13 @@ const mongoose = require('mongoose');
 const Product = require('./product');
 mongoose.connect('mongodb://localhost:27017/farmStands')
 .then(()=>{
-    console.log("connected_007#ooy?47_&drag")
+    console.log("connected")
 })
 .catch((err)=>{
     console.log(err);
 })
+
+
 categories = ['fruit','vegetable','dairy'];
 
 app.get('/products',async (req,res)=>{
@@ -27,7 +29,7 @@ app.get('/products',async (req,res)=>{
 
     }
     else{
-    const products = await Product.find({})
+    const products =  await Product.find({})
     res.render('products/index.ejs',{products,category: 'All'});
     }
 })

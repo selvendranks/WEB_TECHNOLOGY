@@ -16,10 +16,24 @@ app.set('view engine','ejs');
 app.get('/',(req,res)=>{
     res.render('home');
 })
-app.get('/makeroom',async(req,res)=>{
-   const room = new Room({title:'My Room ',description:'clean rooms'})
-   await room.save();
-   res.send(room);
+app.get('/room',async(req,res)=>{
+   const rooms = await Room.find({});
+   console.log(rooms);
+   res.render('rooms/index.ejs',{rooms});
+})
+app.post('/room',async (req,res)=>{
+        res.send(req.body);
+})
+
+app.get('/room/new',(req,res)=>{
+    res.render('rooms/new.ejs');
+})
+
+app.get('/room/:id', async (req,res)=>{
+    const {id} = req.params;
+    const room = await Room.findById(id);
+    console.log(room);
+    res.render('rooms/show.ejs',{room});
 })
 
 app.listen(5000,()=>{

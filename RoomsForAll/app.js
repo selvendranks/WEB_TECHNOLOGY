@@ -2,8 +2,10 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const Room = require('./models/rooms');
+const methodOverride = require('method-override');
 
 app.use(express.urlencoded({extended : true}));
+app.use(methodOverride('_method'));
 
 mongoose.connect('mongodb://localhost:27017/Rooms')
 .then(()=>{
@@ -36,8 +38,20 @@ app.get('/room/new',(req,res)=>{
 app.get('/room/:id', async (req,res)=>{
     const {id} = req.params;
     const room = await Room.findById(id);
-    console.log(room);
+    
     res.render('rooms/show.ejs',{room});
+})
+
+app.put('/room/:id',async (req,res)=>{
+    const {id} = req.params;
+    const room = await Room.findByIdAndUpdate(id,req.body.Room,{runValidators:true,new:true});
+    console.log(req.body.Room);
+    res.redirect(`/room/${room._id}`);
+})
+app.get('/room/:id/edit',async (req,res)=>{
+    const {id} = req.params;
+    const room = await Room.findById(id);
+    res.render('rooms/edit.ejs',{room})
 })
 
 app.listen(5000,()=>{

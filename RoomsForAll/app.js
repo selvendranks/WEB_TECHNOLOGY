@@ -24,7 +24,9 @@ app.get('/room',async(req,res)=>{
    res.render('rooms/index.ejs',{rooms});
 })
 app.post('/room',async (req,res)=>{
-        res.send(req.body.Room);
+      const room = new Room(req.body.Room);
+      await room.save();
+      res.redirect(`/room/${room._id}`);
 })
 
 app.get('/room/new',(req,res)=>{

@@ -8,6 +8,9 @@
 </head>
 <body>
     <h1>All Rooms</h1>
+    <div>
+        <a href="http://localhost:5000/room/new">Add new Room</a>
+    </div>
     <ul>
         <% for(let room of rooms){ %>
             <li><a href="http://localhost:5000/room/<%= room._id %>"><%= room.title %></a> </li> 

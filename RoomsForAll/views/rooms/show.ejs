@@ -1,9 +1,12 @@
 <%layout('layouts/boilerplate') %>
     <h1><%= room.title %> </h1>
     <h2><%= room.location %> </h2>
+    <img src="<%= room.image %> " alt="">
+    <p><%= room.description %> </p>
     <footer>
         <a href="http://localhost:5000/room">All Rooms</a>
         <a href="/room/<%= room._id %>/edit">Edit</a>
+
         <form action="http://localhost:5000/room/<%= room._id %>/delete?_method=DELETE" method="post">
           <button>Delete</button>
         </form>

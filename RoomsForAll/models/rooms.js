@@ -13,7 +13,12 @@ const roomsSchema = new Shema({
     },
     location:{
         type:String
+    },
+    image:{
+        type:String
     }
+
+
 });
 
 const room= mongoose.model("Rooms",roomsSchema);

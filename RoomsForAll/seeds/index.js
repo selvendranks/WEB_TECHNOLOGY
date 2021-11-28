@@ -11,7 +11,11 @@ mongoose.connect('mongodb://localhost:27017/Rooms')
     console.log(err);
 });
 
-const sample = array => array[Math.floor(Math.random() * array.length)];
+const sample = array => array[Math.floor(Math.random() * array.length)]; //title
+
+const intervalrand = function randomIntFromInterval(min, max) { // min and max included 
+    return Math.floor(Math.random() * (max - min + 1) + min) //price
+  }
 
 const seedDB = async()=>{
     await Room.deleteMany({});
@@ -20,7 +24,9 @@ const seedDB = async()=>{
         const room =  new Room({
             title : `${sample(descriptors)} ${sample(places)}`,
             location : `${cities[random].city} , ${cities[random].state}`,
-            
+            image : 'https://source.unsplash.com/collection/1118894',
+            description : 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, neque tempora atque itaque illum doloremque nemo sunt consectetur alias exercitationem, iste, laboriosam ab facilis. Mollitia voluptatem optio corrupti eligendi odio.',
+            price : `${intervalrand(200,1100)}`
         });
         await room.save();
     }

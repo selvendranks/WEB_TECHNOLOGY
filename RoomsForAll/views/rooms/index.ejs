@@ -5,6 +5,16 @@
     </div>
     <ul>
         <% for(let room of rooms){ %>
-            <li><a href="http://localhost:5000/room/<%= room._id %>"><%= room.title %></a> </li> 
-            <% } %> 
+            <div class="card mt-3 d-inline-block" style="width: 18rem;">
+                <img src=<%= room.image %>  class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"><%= room.title %> </h5>
+                  <p class="card-text"><%= room.description %> </p>
+                  <p class="card-text">
+                      <small class="text-muted"><%= room.location %> </small>
+                  </p>
+                  <a href="/room/<%= room._id %> " class="btn btn-primary">View <%= room.title %> </a>
+                </div>
+              </div>
+        <%} %> 
     </ul>

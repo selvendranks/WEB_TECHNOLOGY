@@ -54,6 +54,12 @@ app.get('/room/:id/edit',async (req,res)=>{
     res.render('rooms/edit.ejs',{room})
 })
 
+app.delete('/room/:id/delete',async (req,res)=>{
+    const {id} = req.params;
+    await Room.findOneAndDelete({_id:id});
+    res.redirect(`/room`);
+})
+
 app.listen(5000,()=>{
     console.log('serving port 5000');
 })

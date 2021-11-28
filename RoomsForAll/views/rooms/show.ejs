@@ -12,6 +12,9 @@
     <footer>
         <a href="http://localhost:5000/room">All Rooms</a>
         <a href="/room/<%= room._id %>/edit">Edit</a>
+        <form action="http://localhost:5000/room/<%= room._id %>/delete?_method=DELETE" method="post">
+          <button>Delete</button>
+        </form>
     </footer>
 </body>
 </html>

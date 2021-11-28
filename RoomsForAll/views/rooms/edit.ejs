@@ -1,6 +1,6 @@
 <%layout('layouts/boilerplate') %>
     <h1>Edit room</h1>
-    <form action="http://localhost:5000/room/<%= room._id %>?_method=PUT" method="post">
+    <!-- <form action="http://localhost:5000/room/<%= room._id %>?_method=PUT" method="post">
         <div>
             <label for="title">Title</label>
             <input type="text" id='title' name="Room[title]" value="<%= room.title %> ">
@@ -11,4 +11,36 @@
         </div>
         <button>update</button>
     </form>
-    <a href="/room/<%= room._id %>">Back</a>
+    <a href="/room/<%= room._id %>">Back</a> -->
+    <div class="container">
+        <p class="h1">New Room</p>
+        <form action="http://localhost:5000/room" method="POST">
+            <div class="mb-1 input-group-sm">
+                <label class="form-label">Title</label>
+                <input type="text" class="form-control" name="Room[title]" value="<%= room.title %>">
+            </div>
+            <div class="mb-1 input-group-sm">
+                <label class="form-label">Location</label>
+                <input type="text" class="form-control" name="Room[location]" value="<%= room.location %>">
+            </div>
+            <div class="mb-1 input-group-sm">
+                <label class="form-label">Image Url</label>
+                <input type="text" class="form-control" name="Room[image]" value="<%= room.image %>">
+            </div>
+            <div class="mb-1 input-group-sm">
+                <label class="form-label">Price</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">$</span>
+                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
+                        name="Room[price]">
+                </div>
+            </div>
+
+            <div class="mb-2 input-group-sm">
+                <label class="form-label">Description</label>
+                <textarea type="text" class="form-control" name="Room[description]"></textarea>
+            </div>
+            <button type="submit" class="btn btn-success mb-2">Submit</button>
+        </form>
+        <a href="/room/<%= room._id %>">Back</a>
+    </div>

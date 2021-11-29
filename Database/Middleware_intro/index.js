@@ -18,6 +18,12 @@ const verifypassword = (req,res,next)=>{                      //fake aunthnticat
      res.send("april fool");
  })
 
+ app.use((err,req,res,next)=>{ //runs when ever error occurs
+     console.log('error');
+     console.log(err);
+     next(err) //proceeds with default error handling
+ })
+ 
 app.get('/dog',(req,res)=>{
     res.send('frog');
     console.log('response');

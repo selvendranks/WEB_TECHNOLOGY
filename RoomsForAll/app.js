@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
 const Room = require('./models/rooms');
+const Joi = require('joi');
 const methodOverride = require('method-override');
 
 const app = express();
@@ -29,6 +30,21 @@ app.get('/room',async(req,res)=>{
    res.render('rooms/index.ejs',{rooms});
 })
 app.post('/room',async (req,res)=>{
+      
+      const RoomSchema = Joi.object({     //Joi  schema to validate input
+          Room: Joi.object({
+             title: Joi.string().required(),
+             price: Joi.number().required().min(0),
+             image : Joi.string().required(),
+             location : Joi.string.required()
+          }).required()
+      })
+      const {error} = RoomSchema.validate(req.body);
+      console.log(RoomSchema.validate(req.body));
+      if(error){
+          const msg = error.details.map(el=> el.message)
+          res.render('errors.ejs',{error:msg});
+      }
       const room = new Room(req.body.Room);
       await room.save();
       res.redirect(`/room/${room._id}`);

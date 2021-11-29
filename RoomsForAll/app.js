@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
 const Room = require('./models/rooms');
 const Joi = require('joi');
+const {RoomSchema} = 
 const methodOverride = require('method-override');
 
 const app = express();
@@ -10,6 +11,19 @@ app.engine('ejs',ejsMate);
 
 app.use(express.urlencoded({extended : true}));
 app.use(methodOverride('_method'));
+
+const validateRoom = (req,res,next)=>{
+    
+    const {error} = RoomSchema.validate(req.body);
+    console.log(RoomSchema.validate(req.body));
+    if(error){
+        const msg = error.details.map(el=> el.message)
+        res.render('errors.ejs',{error:msg});
+    }
+    else{
+        next();
+    }
+}
 
 mongoose.connect('mongodb://localhost:27017/Rooms')
 .then(()=>{
@@ -29,22 +43,7 @@ app.get('/room',async(req,res)=>{
    console.log(rooms);
    res.render('rooms/index.ejs',{rooms});
 })
-app.post('/room',async (req,res)=>{
-      
-      const RoomSchema = Joi.object({     //Joi  schema to validate input
-          Room: Joi.object({
-             title: Joi.string().required(),
-             price: Joi.number().required().min(0),
-             image : Joi.string().required(),
-             location : Joi.string.required()
-          }).required()
-      })
-      const {error} = RoomSchema.validate(req.body);
-      console.log(RoomSchema.validate(req.body));
-      if(error){
-          const msg = error.details.map(el=> el.message)
-          res.render('errors.ejs',{error:msg});
-      }
+app.post('/room',validateRoom,async (req,res)=>{
       const room = new Room(req.body.Room);
       await room.save();
       res.redirect(`/room/${room._id}`);

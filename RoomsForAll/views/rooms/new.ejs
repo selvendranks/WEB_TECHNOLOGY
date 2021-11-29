@@ -1,35 +1,53 @@
 <%layout('layouts/boilerplate') %>
     <div class="container">
         <p class="h1">New Room</p>
-        <form action="http://localhost:5000/room" method="POST">
+        <form action="http://localhost:5000/room" method="POST" novalidate class="validated">
             <div class="mb-1 input-group-sm">
                 <label class="form-label">Title</label>
-                <input type="text" class="form-control" name="Room[title]">
+                <input type="text" class="form-control" name="Room[title]" required>
+                <div class="invalid-feedback">
+                    Required
+                  </div>
             </div>
             <div class="mb-1 input-group-sm">
                 <label class="form-label">Location</label>
-                <input type="text" class="form-control" name="Room[location]">
+                <input type="text" class="form-control" name="Room[location]" required>
+                <div class="invalid-feedback">
+                    Required
+                  </div>
             </div>
             <div class="mb-1 input-group-sm">
                 <label class="form-label">Image Url</label>
-                <input type="text" class="form-control" name="Room[image]">
+                <input type="text" class="form-control" name="Room[image]" required>
+                <div class="invalid-feedback">
+                    Required
+                  </div>
             </div>
             <div class="mb-1 input-group-sm">
                 <label class="form-label">Price</label>
                 <div class="input-group mb-3">
                     <span class="input-group-text">$</span>
-                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" name="Room[price]">
-                  </div>
+                    <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" name="Room[price]" required>
+                    <div class="invalid-feedback">
+                        Required
+                      </div>
+                 </div>
             </div>
          
             <div class="mb-2 input-group-sm">
                 <label class="form-label">Description</label>
-                <textarea type="text" class="form-control" name="Room[description]"></textarea>
+                <textarea type="text" class="form-control" name="Room[description]" required></textarea>
+                <div class="invalid-feedback">
+                    Required
+                  </div>
             </div>
             <button type="submit" class="btn btn-success mb-2">Submit</button>
         </form>
         <a href="/room">All Products</a>
     </div>
+    
+   
+
     <!-- <p class="h1">New Room</p>
     <form action="http://localhost:5000/room" method="POST">
         <div>

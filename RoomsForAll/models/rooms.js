@@ -3,19 +3,24 @@ const Shema = mongoose.Schema;
 
 const roomsSchema = new Shema({
     title:{
-        type:String
+        type:String,
+        require:true
     },
     price:{
-      type:  String
+      type:  String,
+      require:true
     },
     description:{
-       type: String
+       type: String,
+       require:true
     },
     location:{
-        type:String
+        type:String,
+        require:true
     },
     image:{
-        type:String
+        type:String,
+        require:true
     }
 
 

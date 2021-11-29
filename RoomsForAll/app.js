@@ -40,7 +40,7 @@ app.get('/room/new',(req,res)=>{
 
 app.get('/room/:id', async (req,res)=>{
     const {id} = req.params;
-    const room = await Room.findById(id);
+    const room = await Room.findById(id).then(console.log('found')).catch((err)=>{res.render('errors.ejs',{error:`${err}`})});
     
     res.render('rooms/show.ejs',{room});
 })
@@ -63,6 +63,9 @@ app.delete('/room/:id/delete',async (req,res)=>{
     res.redirect(`/room`);
 })
 
+app.all('*',(req,res,next)=>{
+    res.render('errors.ejs',{error:'Error 404'});
+})
 app.listen(5000,()=>{
     console.log('serving port 5000');
 })

@@ -1,5 +1,5 @@
 <%layout('layouts/boilerplate') %>
-    <h1>Edit room</h1>
+    <!-- <h1>Edit room</h1> -->
     <!-- <form action="http://localhost:5000/room/<%= room._id %>?_method=PUT" method="post">
         <div>
             <label for="title">Title</label>
@@ -12,35 +12,52 @@
         <button>update</button>
     </form>
     <a href="/room/<%= room._id %>">Back</a> -->
-    <div class="container">
-        <p class="h1">New Room</p>
-        <form action="http://localhost:5000/room" method="POST">
-            <div class="mb-1 input-group-sm">
-                <label class="form-label">Title</label>
-                <input type="text" class="form-control" name="Room[title]" value="<%= room.title %>">
-            </div>
-            <div class="mb-1 input-group-sm">
-                <label class="form-label">Location</label>
-                <input type="text" class="form-control" name="Room[location]" value="<%= room.location %>">
-            </div>
-            <div class="mb-1 input-group-sm">
-                <label class="form-label">Image Url</label>
-                <input type="text" class="form-control" name="Room[image]" value="<%= room.image %>">
-            </div>
-            <div class="mb-1 input-group-sm">
-                <label class="form-label">Price</label>
-                <div class="input-group mb-3">
-                    <span class="input-group-text">$</span>
-                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
-                        name="Room[price]">
+    <div class="row">
+        <div class="col-6 offset-3">
+            <h1>Edit room</h1>
+            <form action="http://localhost:5000/room" method="POST" novalidate class="validated">
+                <div class="mb-1 input-group-sm">
+                    <label class="form-label">Title</label>
+                    <input type="text" class="form-control" name="Room[title]" value="<%= room.title %> " required>
+                    <div class="invalid-feedback">
+                        Required
+                      </div>
                 </div>
-            </div>
+                <div class="mb-1 input-group-sm">
+                    <label class="form-label">Location</label>
+                    <input type="text" class="form-control" name="Room[location]" value="<%= room.location %>" required>
+                    <div class="invalid-feedback">
+                        Required
+                      </div>
+                </div>
+                <div class="mb-1 input-group-sm">
+                    <label class="form-label">Image Url</label>
+                    <input type="text" class="form-control" name="Room[image]" value="<%= room.image %>" required>
+                    <div class="invalid-feedback">
+                        Required
+                      </div>
+                </div>
+                <div class="mb-1 input-group-sm">
+                    <label class="form-label">Price</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">$</span>
+                        <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" required
+                            name="Room[price]" value="<%= room.price %>">
+                            <div class="invalid-feedback">
+                                Required
+                              </div>
+                    </div>
+                </div>
 
-            <div class="mb-2 input-group-sm">
-                <label class="form-label">Description</label>
-                <textarea type="text" class="form-control" name="Room[description]"></textarea>
-            </div>
-            <button type="submit" class="btn btn-success mb-2">Submit</button>
-        </form>
-        <a href="/room/<%= room._id %>">Back</a>
-    </div>
+                <div class="mb-2 input-group-sm">
+                    <label class="form-label">Description</label>
+                    <textarea type="text" class="form-control" name="Room[description]"
+                        required><%= room.description %></textarea>
+                        <div class="invalid-feedback">
+                            Required
+                          </div>
+                </div>
+                <button type="submit" class="btn btn-info mb-2">Apply Changes</button>
+            </form>
+            <a href="/room/<%= room._id %>">Back</a>
+        </div>

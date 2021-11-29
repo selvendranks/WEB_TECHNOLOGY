@@ -1,13 +1,50 @@
 <%layout('layouts/boilerplate') %>
-    <h1><%= room.title %> </h1>
-    <h2><%= room.location %> </h2>
+    <!-- <h1>
+        <%= room.title %>
+    </h1>
+    <h2>
+        <%= room.location %>
+    </h2>
     <img src="<%= room.image %> " alt="">
-    <p><%= room.description %> </p>
+    <p>
+        <%= room.description %>
+    </p>
     <footer>
         <a href="http://localhost:5000/room">All Rooms</a>
         <a href="/room/<%= room._id %>/edit">Edit</a>
 
         <form action="http://localhost:5000/room/<%= room._id %>/delete?_method=DELETE" method="post">
-          <button>Delete</button>
+            <button type="submit" class="btn btn-danger mb-2">Delete</button>
         </form>
-    </footer>
+    </footer> -->
+    <div class="row">
+        <div class="col-6 offset-4">
+            <div class="card mb-3" style="width: 18rem;">
+                <img class="card-img-top" src="<%= room.image %>" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <%= room.title %>
+                    </h5>
+                    <p class="card-text">
+                        <%= room.description %>
+                    </p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-muted">
+                        <%= room.location %>
+                    </li>
+                    <li class="list-group-item">$<%= room.price %>/month </li>
+
+                </ul>
+                <div class="card-body">
+                    <form action="/room/<%= room._id %>/edit" class="d-inline">
+                        <button type="submit" class="btn btn-warning btn-sm mt-2">Edit</button>
+                    </form>
+                    <form action="http://localhost:5000/room/<%= room._id %>/delete?_method=DELETE" method="post"
+                        class="d-inline">
+                        <button type="submit" class="btn btn-danger btn-sm mt-2">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>

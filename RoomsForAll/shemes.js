@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-exports.module.RoomValidationSheme =
+module.exports.RoomSchema =
     Joi.object({     //Joi  schema to validate input
         Room: Joi.object({
             title: Joi.string().required(),

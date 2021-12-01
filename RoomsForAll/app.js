@@ -2,8 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
 const Room = require('./models/rooms');
-const Joi = require('joi');
-const {RoomSchema} = 
+const {RoomSchema} = require('./shemes.js');
 const methodOverride = require('method-override');
 
 const app = express();
@@ -14,6 +13,7 @@ app.use(methodOverride('_method'));
 
 const validateRoom = (req,res,next)=>{
     
+    console.log(RoomSchema);
     const {error} = RoomSchema.validate(req.body);
     console.log(RoomSchema.validate(req.body));
     if(error){

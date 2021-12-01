@@ -1,3 +1,5 @@
+//parent has refference of child
+
 const mongoose = require('mongoose');
 const {Schema} = mongoose;
 

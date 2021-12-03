@@ -20,6 +20,7 @@ mongoose.connect('mongodb://localhost:27017/farmStands2')
 .catch((err)=>{
     console.log(err);
 })
+categories = ['fruit','vegetable','dairy'];
 ///////////////////////////////Farm routes
 app.get('/farms/new',(req,res)=>{
     res.render('farms/new_farms.ejs');
@@ -27,8 +28,8 @@ app.get('/farms/new',(req,res)=>{
 
 app.get('/farms/:id',async(req,res)=>{
     const {id} = req.params;
-    const farm = await findById(id);
-    res.render('farms/show',{farm});
+    const farm = await Farm.findById(id);
+    res.render('farms/show.ejs',{farm});
 })
 app.post('/farms',async(req,res)=>{
      const newfarm = new Farm(req.body);
@@ -41,8 +42,24 @@ app.get('/farms',async(req,res)=>{
     res.render('farms/index.ejs',{farms});
 })
 
+app.get('/farms/:id/products/new',(req,res)=>{
+    const {id} = req.params;
+    res.render('products/new_product.ejs',{categories,id})
+})
+
+app.post('/farms/:id/products',async(req,res)=>{
+    const {id} = req.params;
+    const product = new Product(req.body);
+    const farm = await Farm.findById(id);
+    farm.products.push(product);
+    product.farm = farm;
+    await farm.save();
+    await product.save();
+    res.send(farm);
+    
+})
 /////////////////////////////////////////////product routes routes
-categories = ['fruit','vegetable','dairy'];
+
 
 app.get('/products',async (req,res)=>{
     const {category} = req.query;

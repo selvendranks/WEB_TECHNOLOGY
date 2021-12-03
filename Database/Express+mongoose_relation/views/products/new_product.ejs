@@ -7,7 +7,7 @@
     <title>New Product</title>
 </head>
 <body>
-    <form action="/products" method="POST">
+    <form action="http://localhost:1000/farms/<%= id %>/products" method="POST">
         <label for="name">Name</label>
         <input type="text" name="name" placeholder="productname" id="name">
 
@@ -17,7 +17,7 @@
         <label for="category">Category</label>
         <select name="category" id="category">
             <%for(let category of categories){  %> 
-            <option value="<%= category %> "><%= category %> </option>
+            <option value="<%= category %>"><%= category %></option>
             <%} %> 
         </select>
         <button>Submit</button>

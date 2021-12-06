@@ -7,12 +7,22 @@
     <title><%= farm.name %> </title>
 </head>
 <body>
-    <h1><%= farm.name %> </h1>
+   <h1><%= farm.name %> </h1>
     <ul>
         <li>City: <%= farm.city %> </li>
         <li>Email:<%= farm.email %> </li>
+
     </ul>
-    <a href="/farms">Farms</a>
-     
+     <h2>Products</h2>
+     <ul>
+         <%for(let product of farm.products){ %> 
+            <li><a href="http://localhost:1000/products/<%= product.id %>"><%= product.name %></a></li>
+         <%} %> 
+     </ul>
+     <a href="/farms">Farms</a>
+     <a href="/farms/<%= farm.id %>/products/new">Add products</a>
+     <form action="/farms/<%= farm.id %>?_method=DELETE" method="post">
+         <button>delete</button>
+     </form>
 </body>
 </html>

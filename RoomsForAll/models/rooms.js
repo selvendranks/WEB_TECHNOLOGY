@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Shema = mongoose.Schema;
+const Review = require('./review');
 
 const roomsSchema = new Shema({
     title:{
@@ -21,10 +22,17 @@ const roomsSchema = new Shema({
     image:{
         type:String,
         require:true
-    }
-
+    },
+    reviews:[{type:Shema.Types.ObjectId,ref : 'Review'}]
+  
 
 });
+
+roomsSchema.post('findOneAndDelete',async (room)=>{
+    if(room){
+        await Review.deleteMany({id:{$in:room.reviews}})
+    }
+})
 
 const room= mongoose.model("Rooms",roomsSchema);
 module.exports = room;

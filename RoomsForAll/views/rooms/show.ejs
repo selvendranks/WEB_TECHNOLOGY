@@ -1,7 +1,7 @@
 <%layout('layouts/boilerplate') %>
     <div class="row">
-        <div class="col-6 offset-4">
-            <div class="card mb-3" style="width: 18rem;">
+        <div class="col-6">
+            <div class="card mb-3" style="width: 25rem;">
                 <img class="card-img-top" src="<%= room.image %>" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">
@@ -27,6 +27,37 @@
                         <button type="submit" class="btn btn-danger btn-sm mt-2">Delete</button>
                     </form>
                 </div>
+            </div>
+         
+        </div>
+        <div class="col-6 ">
+            <h2>Leave a review</h2>
+            <div>
+            <form action="http://localhost:5000/room/<%= room.id %>/review" method="post" class="mb-3 validated" novalidate>
+                <div class="mb-3">
+                    <label class="form-label" for="rating">Rating</label>
+                    <input class="form-range" type="range" min='1' max="5" name="review[rating]">
+                </div>
+                <div class="mb-3">
+                   <label class="form-label" for="review">Review</label>
+                    <textarea class="form-control" name="review[body]" id="review" cols="3" rows="3" required></textarea>
+                    <div class="invalid-feedback">
+                        write something before submit
+                    </div>
+                </div>
+                <button class="btn btn-success">Add review</button>
+            </form>
+            <%for(let review of room.reviews){ %>
+            <div class="mb-2 card">
+              <div class="card-body">
+                     <h5 class="card-title">Rating: <%= review.rating %> </h5>
+                     <p class="card-text">Rating: <%= review.body %> </p>
+                     <form action="/room/<%= room.id %>/review/<%= review.id %>?_method=DELETE" method="post">
+                          <button class="btn btn-danger btn-sm">Delete</button>                    
+                    </form>
+              </div>
+              </div>
+                <% } %>  
             </div>
         </div>
     </div>

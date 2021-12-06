@@ -11,6 +11,7 @@
     <ul>
         <li>Price: <%= product.price %> </li>
         <li>Categoty:<a href="http://localhost:1000/products?category=<%= product.category %> "><%= product.category %> </a></li>
+        <li><a href="/farms/<%= product.farm.id %> "><%= product.farm.name %> </a></li>
     </ul>
     <a href="http://localhost:1000/products/<%= product.id %>/edit ">Edit-product</a>
     <a href="http://localhost:1000/products">All Products</a>

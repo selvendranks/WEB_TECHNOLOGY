@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const methodOverride = require('method-override');
-
+const flash = require('connect-flash');
+app.use(flash());
 
 app.set('views',path.join(__dirname,'views'));
 app.set('view enginee','ejs');
@@ -35,6 +36,7 @@ app.get('/farms/:id',async(req,res)=>{
 app.post('/farms',async(req,res)=>{
      const newfarm = new Farm(req.body);
      await newfarm.save();
+     req.flash()
      res.redirect('/farms');
 })
 

@@ -27,14 +27,17 @@ router.get('/',async(req,res)=>{
 router.post('/',validateRoom,async (req,res)=>{
       const room = new Room(req.body.Room);
       await room.save();
+      req.flash('sucess','Sucessfully added new room');
       res.redirect(`/room/${room._id}`);
 })
 
 router.get('/new',(req,res)=>{
+    req.flash('sucess','Sucessfully added new room');
     res.render('rooms/new.ejs');
 })
 
 router.get('/:id', async (req,res)=>{
+    
     const {id} = req.params;
     const room = await Room.findById(id).populate('reviews').then(console.log('found')).catch((err)=>{res.render('errors.ejs',{error:`${err}`})});
     console.log(room);
@@ -44,6 +47,7 @@ router.get('/:id', async (req,res)=>{
 router.put('/:id',async (req,res)=>{
     const {id} = req.params;
     const room = await Room.findByIdAndUpdate(id,req.body.Room,{runValidators:true,new:true});
+    req.flash('sucess','Sucessfully updated the room')
     res.redirect(`/room/${room._id}`);
 })
 router.get('/:id/edit',async (req,res)=>{

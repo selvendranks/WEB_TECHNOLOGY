@@ -1,13 +1,14 @@
 const express = require('express');
 const Room = require('../models/rooms');
 const Review = require('../models/review');
+
+
 const router = express.Router({mergeParams:true});
 const {RoomSchema,reviewSchema} = require('../shemes');
 router.use(express.urlencoded({extended : true}));
 const methodOverride = require('method-override');
 
 router.use(methodOverride('_method'));
-
 
 const validateReview = (req,res,next)=>{
     console.log(req.body);
@@ -23,7 +24,7 @@ const validateReview = (req,res,next)=>{
 }
 
 router.post('/',validateReview,async(req,res)=>{
-    req.flash('sucess','Sucessfully added new room');
+  
     const {id} = req.params;
     //console.log(id);
     const room = await Room.findById(id);
@@ -32,6 +33,7 @@ router.post('/',validateReview,async(req,res)=>{
     room.reviews.push(review);
     await review.save();
     await room.save();
+    req.flash('sucess','Sucessfully added your review');
     res.redirect(`/room/${room.id}`);
 
 })

@@ -8,13 +8,14 @@ const reviews = require('./routes/reviews')
 const flash = require('connect-flash');
 const app = express();
 app.use(express.static('public'));
-app.use('/room',rooms);
-app.use('/room/:id/review',reviews);
+
 app.engine('ejs',ejsMate);
 
 app.use(express.urlencoded({extended : true}));
 app.use(methodOverride('_method'));
-app.use(falsh());
+
+
+
 const sessionConfig = { 
     secret :'goodsecret',
     resave:false,
@@ -26,8 +27,13 @@ const sessionConfig = {
     }
 }
 app.use(session(sessionConfig));
+app.use(flash());
 
-
+app.use((req,res,next)=>{
+    res.locals.sucess = req.flash('sucess');
+    res.locals.error = req.flash('error');
+    next();
+})
 mongoose.connect('mongodb://localhost:27017/Rooms')
 .then(()=>{
     console.log("connected")
@@ -38,6 +44,8 @@ mongoose.connect('mongodb://localhost:27017/Rooms')
 
 app.set('view engine','ejs');
 
+app.use('/room',rooms);
+app.use('/room/:id/review',reviews);
 
 app.all('*',(req,res,next)=>{
     res.render('errors.ejs',{error:'Error 404'});

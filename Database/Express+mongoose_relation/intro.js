@@ -2,6 +2,11 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const methodOverride = require('method-override');
+const session = require('express-session');
+
+const sessionOption = {secret: 'secreti',resave:false,saveUninitialized:false}
+app.use(session(sessionOption));
+
 const flash = require('connect-flash');
 app.use(flash());
 
@@ -36,13 +41,13 @@ app.get('/farms/:id',async(req,res)=>{
 app.post('/farms',async(req,res)=>{
      const newfarm = new Farm(req.body);
      await newfarm.save();
-     req.flash()
+     req.flash('sucess','Farm sucessfully created')
      res.redirect('/farms');
 })
 
 app.get('/farms',async(req,res)=>{
     const farms = await Farm.find({});
-    res.render('farms/index.ejs',{farms});
+    res.render('farms/index.ejs',{farms,message: req.flash('sucess')});
 })
 
 app.get('/farms/:id/products/new',async (req,res)=>{

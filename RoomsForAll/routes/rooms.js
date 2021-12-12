@@ -39,27 +39,42 @@ router.get('/new',(req,res)=>{
 router.get('/:id', async (req,res)=>{
     
     const {id} = req.params;
-    const room = await Room.findById(id).populate('reviews').then(console.log('found')).catch((err)=>{res.render('errors.ejs',{error:`${err}`})});
+    const room = await Room.findById(id).populate('reviews');
     console.log(room);
+    if(!room){
+        console.log('nulled');
+        req.flash('error','Cannot find room');
+        res.redirect('/room');
+    }
+    else{
     res.render('rooms/show.ejs',{room});
+    }
 })
 
-router.put('/:id',async (req,res)=>{
+router.put('/:id',validateRoom,async (req,res)=>{
     const {id} = req.params;
-    const room = await Room.findByIdAndUpdate(id,req.body.Room,{runValidators:true,new:true});
+    const room = await Room.findByIdAndUpdate(id,req.body.Room,{runValidators:false,new:true});
     req.flash('sucess','Sucessfully updated the room')
     res.redirect(`/room/${room._id}`);
 })
 router.get('/:id/edit',async (req,res)=>{
     const {id} = req.params;
     const room = await Room.findById(id);
+    if(!room){
+        console.log('nulled');
+        req.flash('error','Cannot find room');
+        res.redirect('/room');
+    }
+    else{
     res.render('rooms/edit.ejs',{room})
+    }
 })
 
 
 router.delete('/:id/delete',async (req,res)=>{
     const {id} = req.params;
     await Room.findByIdAndDelete(id);
+    req.flash('sucess','Sucessfully deleted the room')
     res.redirect(`/room`);
 })
 

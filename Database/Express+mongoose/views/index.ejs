@@ -10,7 +10,7 @@
     <h1><%= category %>  Products</h1>
     <ul>
         <% for(let product of products){ %>
-           <li> <a href="http://localhost:1000/products/<%= product.id %> "><%= product.name %></a></li>
+           <li> <a href="http://localhost:1000/products/<%= product.id %>"><%= product.name %></a></li>
         <% } %>   
     </ul>
     <a href="http://localhost:1000/products/new">New-Products</a>

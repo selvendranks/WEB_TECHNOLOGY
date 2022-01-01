@@ -12,7 +12,7 @@ const validateRoom = (req,res,next)=>{
     console.log(req.body);
     const {error} = RoomSchema.validate(req.body);
     if(error){ 
-        const msg = error.details.map(el=> el.message)
+        const msg = error.details.map(el=> el.message);
         return res.render('errors.ejs',{error:msg});
     }
     else{

@@ -12,8 +12,13 @@ router.post('/register',async (req,res)=>{
     const {username,email,password} = req.body;
     const user = new User({username , email});
     const registeredUser = await User.register(user,password);
+    req.login(registeredUser,err=>{
+        if(err) return next(err);
+        // req.flash('sucess',"Welcome to yelpcamp");
+        // res.redirect('/room');
+    })
     req.flash('sucess',"Welcome to yelpcamp");
-    res.redirect('/room');
+        res.redirect('/room');
   }
   catch(e){
       req.flash('error',e.message);
@@ -27,7 +32,12 @@ router.get('/login',async(req,res)=>{
 })
 
 router.post('/login',passport.authenticate('local',{failureFlash: true, failureRedirect: '/login'}),async(req,res)=>{
-     
+     res.redirect('/room');
 })
 
+router.get('/logout',(req,res)=>{
+    req.logOut();
+    req.flash('sucess','sucessfully logged out');
+    res.redirect('/room');
+})
 module.exports = router;

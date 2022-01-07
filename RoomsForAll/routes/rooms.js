@@ -3,6 +3,7 @@ const router = express.Router();
 const {RoomSchema,reviewSchema} = require('../shemes');
 const Room = require('../models/rooms');
 const methodOverride = require('method-override');
+const {isloggedin} = require('../middleware');
 
 router.use(express.urlencoded({extended : true}));
 router.use(methodOverride('_method'));
@@ -31,12 +32,13 @@ router.post('/',validateRoom,async (req,res)=>{
       res.redirect(`/room/${room._id}`);
 })
 
-router.get('/new',(req,res)=>{
+router.get('/new',isloggedin,(req,res)=>{
+   
     req.flash('sucess','Sucessfully added new room');
     res.render('rooms/new.ejs');
 })
 
-router.get('/:id', async (req,res)=>{
+router.get('/:id',isloggedin, async (req,res)=>{
     
     const {id} = req.params;
     const room = await Room.findById(id).populate('reviews');

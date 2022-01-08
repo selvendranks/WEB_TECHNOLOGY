@@ -28,6 +28,7 @@ mongoose.connect('mongodb://localhost:27017/farmStands2')
 })
 categories = ['fruit','vegetable','dairy'];
 ///////////////////////////////Farm routes
+
 app.get('/farms/new',(req,res)=>{
     res.render('farms/new_farms.ejs');
 })
@@ -74,6 +75,7 @@ app.delete('/farms/:id',async(req,res)=>{
     res.redirect('/farms');
 })
 /////////////////////////////////////////////product routes routes
+
 
 
 app.get('/products',async (req,res)=>{

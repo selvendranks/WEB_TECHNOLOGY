@@ -11,6 +11,7 @@ module.exports.RoomSchema =
         }).required()
     })
 
+    
 module.exports.reviewSchema = 
      Joi.object({
          review: Joi.object({

@@ -68,8 +68,9 @@ app.use('/room',rooms);
 app.use('/room/:id/review',reviews);
 
 app.all('*',(req,res,next)=>{
-    res.render('errors.ejs',{error:'Error 404'});
+    res.render('errors.ejs',{error:'something went wrong'});
 })
+
 app.listen(5000,()=>{
     console.log('serving port 5000');
 })

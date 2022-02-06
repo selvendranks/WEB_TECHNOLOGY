@@ -27,14 +27,12 @@ router.get('/',async(req,res)=>{
 })
 router.post('/',validateRoom,async (req,res)=>{
       const room = new Room(req.body.Room);
-      await room.save();
+      await room.save()
       req.flash('sucess','Sucessfully added new room');
       res.redirect(`/room/${room._id}`);
 })
 
 router.get('/new',isloggedin,(req,res)=>{
-   
-    req.flash('sucess','Sucessfully added new room');
     res.render('rooms/new.ejs');
 })
 

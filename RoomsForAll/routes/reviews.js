@@ -1,7 +1,7 @@
 const express = require('express');
 const Room = require('../models/rooms');
 const Review = require('../models/review');
-
+const catchAsync = require('../utils/catchAsync');
 
 const router = express.Router({mergeParams:true});
 const {RoomSchema,reviewSchema} = require('../shemes');
@@ -23,7 +23,7 @@ const validateReview = (req,res,next)=>{
     }
 }
 
-router.post('/',validateReview,async(req,res)=>{
+router.post('/',validateReview,catchAsync(async(req,res)=>{
   
     const {id} = req.params;
     //console.log(id);
@@ -36,14 +36,14 @@ router.post('/',validateReview,async(req,res)=>{
     req.flash('sucess','Sucessfully added your review');
     res.redirect(`/room/${room.id}`);
 
-})
+}))
 
-router.delete('/:reviewid',async (req,res)=>{
+router.delete('/:reviewid',catchAsync(async (req,res)=>{
     const {id,reviewid} = req.params;
     await Room.findByIdAndUpdate(id,{$pull:{reviews:reviewid}});  //deletes the object in array of reviews which has reviewid
     await Review.findByIdAndDelete(reviewid);
     req.flash('sucess','Sucessfully deleted the review')
     res.redirect(`/room/${id}`);
-})
+}))
 
 module.exports = router;

@@ -2,12 +2,13 @@ const express = require('express');
 const passport = require('passport');
 const router = express.Router();
 const User = require('../models/user');
+const catchAsync = require('../utils/catchAsync');
 
 router.get('/register',(req,res)=>{
     res.render('users/register');
 })
 
-router.post('/register',async (req,res)=>{
+router.post('/register',catchAsync(async (req,res)=>{
   try{
     const {username,email,password} = req.body;
     const user = new User({username , email});
@@ -25,15 +26,15 @@ router.post('/register',async (req,res)=>{
       res.redirect('/register');
   }
    
-})
+}))
 
-router.get('/login',async(req,res)=>{
+router.get('/login',catchAsync(async(req,res)=>{
     res.render('users/login');
-})
+}))
 
-router.post('/login',passport.authenticate('local',{failureFlash: true, failureRedirect: '/login'}),async(req,res)=>{
+router.post('/login',passport.authenticate('local',{failureFlash: true, failureRedirect: '/login'}),catchAsync(async(req,res)=>{
      res.redirect('/room');
-})
+}))
 
 router.get('/logout',(req,res)=>{
     req.logOut();

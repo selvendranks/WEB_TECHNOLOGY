@@ -12,7 +12,7 @@ const productSchema = new mongoose.Schema({
         min : 0
     },
     category:{
-        type :String,
+        type :String, 
         enum : ['fruit','vegetable','dairy']
     },
     farm:{type: Schema.Types.ObjectId,ref:'Farm' }

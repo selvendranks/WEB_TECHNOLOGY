@@ -1,7 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const {RoomSchema,reviewSchema} = require('../shemes');
-const Room = require('../models/rooms');
 const methodOverride = require('method-override');
 const {isloggedin,isAuthor,validateRoom} = require('../middleware');
 const catchAsync = require('../utils/catchAsync');

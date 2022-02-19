@@ -44,7 +44,7 @@ module.exports.updateRoom = async (req,res)=>{
     res.redirect(`/room/${room._id}`);
 }
 
-module.exports.renderNewForm  = async (req,res)=>{
+module.exports.renderEditForm  = async (req,res)=>{
     const {id} = req.params;
     const room = await Room.findById(id);
     if(!room){

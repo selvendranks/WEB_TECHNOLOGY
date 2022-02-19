@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-6 offset-3">
             <p class="h1">New Room</p>
-            <form action="http://localhost:5000/room" method="POST" novalidate class="validated">
+            <form action="http://localhost:5000/room" method="POST" novalidate class="validated" enctype="multipart/form-data">
                 <div class="mb-1 input-group-sm">
                     <label class="form-label">Title</label>
                     <input type="text" class="form-control" name="Room[title]" required>
@@ -18,11 +18,8 @@
                     </div>
                 </div>
                 <div class="mb-1 input-group-sm">
-                    <label class="form-label">Image Url</label>
-                    <input type="text" class="form-control" name="Room[image]" required>
-                    <div class="invalid-feedback">
-                        Required
-                    </div>
+                    <label for="">upload image</label>
+                    <input type="file" name="image">
                 </div>
                 <div class="mb-1 input-group-sm">
                     <label class="form-label">Price</label>

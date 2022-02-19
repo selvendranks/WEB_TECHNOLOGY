@@ -55,6 +55,7 @@ const validateRoom = (req,res,next)=>{
 module.exports.validateRoom = validateRoom;
 
 const validateReview = (req,res,next)=>{
+
     console.log(req.body);
     const  {error} = reviewSchema.validate(req.body);
     if(error){

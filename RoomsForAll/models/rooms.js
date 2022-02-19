@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Shema = mongoose.Schema;
 const Review = require('./review');
-const User = require('./user');
 
 const roomsSchema = new Shema({
     title:{

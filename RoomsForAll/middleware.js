@@ -1,3 +1,4 @@
+const Review = require('./models/review');
 const Room = require('./models/rooms');
 const {RoomSchema,reviewSchema} = require('./shemes');
 
@@ -26,6 +27,17 @@ const isAuthor = async(req,res,next)=>{
 
 module.exports.isAuthor = isAuthor;
 
+const isReviewAuthor = async(req,res,next)=>{
+    const {id,reviewid} = req.params;
+    const review = await Review.findById(reviewid);
+    if(!review.author.equals(req.user._id)){
+        req.flash("error","you dont have permission");
+        return res.redirect(`/room/${id}`);
+    }
+    next();
+}
+
+module.exports.isReviewAuthor = isReviewAuthor;
 
 const validateRoom = (req,res,next)=>{
     

@@ -29,7 +29,12 @@ router.get('/new',isloggedin,(req,res)=>{
 router.get('/:id',isloggedin, catchAsync(async (req,res)=>{
     
     const {id} = req.params;
-    const room = await Room.findById(id).populate('reviews').populate('author');
+    const room = await Room.findById(id).populate({
+        path :'reviews',
+        populate:{
+            path:'author'
+        }
+    }).populate('author');
     console.log(room);
     if(!room){
         console.log('nulled');

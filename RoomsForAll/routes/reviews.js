@@ -2,26 +2,13 @@ const express = require('express');
 const Room = require('../models/rooms');
 const Review = require('../models/review');
 const catchAsync = require('../utils/catchAsync');
-
+const {validateReview} = require('../middleware')
 const router = express.Router({mergeParams:true});
 const {RoomSchema,reviewSchema} = require('../shemes');
 router.use(express.urlencoded({extended : true}));
 const methodOverride = require('method-override');
 
 router.use(methodOverride('_method'));
-
-const validateReview = (req,res,next)=>{
-    console.log(req.body);
-    const  {error} = reviewSchema.validate(req.body);
-    if(error){
-        console.log(error);
-        const msg = error.details.map(el=> el.message);
-        res.render('errors.ejs',{error:msg});
-    }
-    else{
-        next();
-    }
-}
 
 router.post('/',validateReview,catchAsync(async(req,res)=>{
   

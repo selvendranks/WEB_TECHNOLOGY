@@ -33,7 +33,10 @@ router.get('/login',catchAsync(async(req,res)=>{
 }))
 
 router.post('/login',passport.authenticate('local',{failureFlash: true, failureRedirect: '/login'}),catchAsync(async(req,res)=>{
-     res.redirect('/room');
+    req.flash("sucess","Welcome back");
+    const redirectUrl = req.session.returnTo || '/room';
+    delete req.session.returnTo;
+    res.redirect(redirectUrl);
 }))
 
 router.get('/logout',(req,res)=>{

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Shema = mongoose.Schema;
 const Review = require('./review');
+const User = require('./user');
 
 const roomsSchema = new Shema({
     title:{
@@ -22,6 +23,10 @@ const roomsSchema = new Shema({
     image:{
         type:String,
         require:true
+    },
+    author :{
+         type:mongoose.Schema.Types.ObjectId,
+         ref: 'User'
     },
     reviews:[{type:Shema.Types.ObjectId,ref : 'Review'}]
   

@@ -57,9 +57,9 @@ mongoose.connect('mongodb://localhost:27017/Rooms')
 app.get('/fakeuser',async (req,res)=>{
 
     const user = new User({email:'selvendran',username:"dffdf"});
-    //const newuser = await User.register(user,"donkey");
+    const newuser = await User.register(user,"donkey");
 
-    res.send(user);
+    res.send(newuser);
 })
 app.set('view engine','ejs');
 

@@ -26,6 +26,6 @@ app.get('/greet',(req,res)=>{
     res.send(`Greetings ${req.session.username}`)
 })
 app.listen(3000,()=>{
-    console.log("listening");
+    console.log("listening Seesion");
 })
 

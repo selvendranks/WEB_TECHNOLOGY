@@ -12,7 +12,9 @@
     <ul>
         <% for(let room of rooms){ %>
             <div class="card mt-3 d-inline-block" style="width: 18rem;">
-                <img src=<%= room.image %>  class="card-img-top" alt="...">
+                <% if(room.image.length){ %> 
+                <img src=<%= room.image[0].url %>  class="card-img-top" alt="...">
+                <% } %> 
                 <div class="card-body">
                   <h5 class="card-title"><%= room.title %> </h5>
                   <p class="card-text"><%= room.description %> </p>

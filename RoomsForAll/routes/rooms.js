@@ -14,22 +14,19 @@ const rooms = require('../controllers/rooms');
 
 router.route('/')
       .get(catchAsync(rooms.index))
-      //.post(validateRoom,catchAsync(rooms.addNewRoom));
-      .post(upload.array('image'),(req,res)=>{
-          console.log(req.body,req.files);
-          res.send("g");
-      })
+      .post(isloggedin,upload.array('image'),validateRoom,catchAsync(rooms.addNewRoom));
+      
 
 
 router.get('/new',isloggedin,rooms.renderNewForm);
 
 router.route('/:id')
       .get(isloggedin, catchAsync(rooms.showRoom))
-      .put(validateRoom,isAuthor,catchAsync(rooms.updateRoom));
+      .put(isloggedin,isAuthor,upload.array("image"),catchAsync(rooms.updateRoom));
 
 router.get('/:id/edit',isloggedin,isAuthor,catchAsync(rooms.renderEditForm));
 
 
-router.delete('/:id/delete',catchAsync(rooms.deleteRoom));
+router.delete('/:id/delete',isloggedin,isAuthor,catchAsync(rooms.deleteRoom));
 
 module.exports = router;

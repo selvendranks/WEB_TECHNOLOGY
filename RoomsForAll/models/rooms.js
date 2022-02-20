@@ -19,10 +19,10 @@ const roomsSchema = new Shema({
         type:String,
         require:true
     },
-    image:{
-        type:String,
-        require:true
-    },
+    image:[{
+        url:String,
+        filename:String
+    }],
     author :{
          type:mongoose.Schema.Types.ObjectId,
          ref: 'User'

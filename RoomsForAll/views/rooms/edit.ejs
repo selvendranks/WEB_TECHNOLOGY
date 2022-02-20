@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col-6 offset-3">
             <h1>Edit room</h1>
-            <form action="http://localhost:5000/room/<%= room._id %>?_method=PUT" method="POST" novalidate class="validated">
+            <form action="http://localhost:5000/room/<%= room._id %>?_method=PUT" method="POST" novalidate class="validated" enctype="multipart/form-data">
                 <div class="mb-1 input-group-sm">
                     <label class="form-label">Title</label>
                     <input type="text" class="form-control" name="Room[title]" value="<%= room.title %> " required>
@@ -30,13 +30,11 @@
                         Required
                       </div>
                 </div>
-                <div class="mb-1 input-group-sm">
-                    <label class="form-label">Image Url</label>
-                    <input type="text" class="form-control" name="Room[image]" value="<%= room.image %>" required>
-                    <div class="invalid-feedback">
-                        Required
-                      </div>
-                </div>
+            
+                <!-- <div class="mb-1 input-group-sm">
+                    <label for="">upload image</label>
+                    <input type="file" name="image" multiple>
+                </div> -->
                 <div class="mb-1 input-group-sm">
                     <label class="form-label">Price</label>
                     <div class="input-group mb-3">
@@ -57,6 +55,20 @@
                             Required
                           </div>
                 </div>
+                <div class="mb-3">
+                    <label for="formFileSm" class="form-label">Upload images</label>
+                    <input class="form-control form-control-sm" id="formFileSm" type="file" name="image" multiple>
+                </div>
+                <div class="mb-3">
+                    <h6>Delete images</h6>
+                    <% room.image.forEach((img,i)=>{ %>
+                     <img src="<%= img.url %> " alt="" style="width :40%; height:40%">
+                     <div class="form-check-inline">
+                         <input type="checkbox" id="image-<%=i%>" name = "deleteImages" value="<%= img.filename %>">
+                     </div> 
+                     <% }) %> 
+                </div>
+
                 <button type="submit" class="btn btn-info mb-2">Apply Changes</button>
             </form>
             <a href="/room/<%= room._id %>">Back</a>

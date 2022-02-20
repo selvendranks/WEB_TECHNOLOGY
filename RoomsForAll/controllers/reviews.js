@@ -8,7 +8,6 @@ module.exports.addReview = async(req,res)=>{
     const room = await Room.findById(id);
     const review = new Review(req.body.review);
     review.author = req.user._id;
-    console.log(room);
     room.reviews.push(review);
     await review.save();
     await room.save();

@@ -15,3 +15,4 @@ mapboxgl.accessToken = mapToken;
                          )
         )
         .addTo(map);
+        map.addControl(new mapboxgl.NavigationControl())

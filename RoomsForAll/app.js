@@ -10,6 +10,7 @@ const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
 const session = require('express-session');
 const methodOverride = require('method-override');
+const mongoSanitize = require('express-mongo-sanitize')
 
 const rooms = require('./routes/rooms');
 const reviews = require('./routes/reviews')
@@ -29,6 +30,7 @@ app.use(express.urlencoded({extended : true}));
 app.use(methodOverride('_method'));
 
 const sessionConfig = { 
+    name: 'session',
     secret :'goodsecret',
     resave:false,
     saveUninitialized:true ,
@@ -53,6 +55,9 @@ app.use((req,res,next)=>{
     res.locals.error = req.flash('error');
     next();
 })
+
+app.use(mongoSanitize());
+
 mongoose.connect('mongodb://localhost:27017/Rooms')
 .then(()=>{
     console.log("connected")

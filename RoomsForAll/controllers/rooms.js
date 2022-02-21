@@ -27,7 +27,9 @@ module.exports.addNewRoom = async (req,res)=>{
 
     const room = new Room(req.body.Room);
     room.geometry = geodata.body.features[0].geometry;
+    if(latitude!=='0'&&longitude!=='0'){
     room.geometry.coordinates = markedCordinates;
+    }
     room.image =  req.files.map(f=>({ url:f.path , filename:f.filename }))
     room.author = req.user._id;
     await room.save()
@@ -57,11 +59,16 @@ module.exports.showRoom =async (req,res)=>{
 }
 
 module.exports.updateRoom = async (req,res)=>{
+
+    const {latitude,longitude} = req.body.Room;
+    const markedCordinates = [parseFloat(longitude),parseFloat(latitude)];
     const {id} = req.params;
     console.log(req.body.deleteImages);
     const room = await Room.findByIdAndUpdate(id,req.body.Room,{runValidators:false,new:true});
     const imgs =   req.files.map(f=>({ url:f.path , filename:f.filename }));
     room.image.push(...imgs);
+    
+    room.geometry.coordinates = markedCordinates;
 
     if(req.body.deleteImages){
 

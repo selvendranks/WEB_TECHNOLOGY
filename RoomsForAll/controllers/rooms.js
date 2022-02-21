@@ -1,6 +1,7 @@
 const Room = require('../models/rooms');
-const cloudinary = require('../cloudinary');
+const {cloudinary} = require('../cloudinary');
 const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
+//const {cordin} = require("../public/javascript/dragableMap");
 
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({accessToken:mapBoxToken})
@@ -15,23 +16,29 @@ module.exports.index = async(req,res)=>{
 }
 
 module.exports.addNewRoom = async (req,res)=>{
+     
+    const {latitude,longitude} = req.body.Room;
+    const markedCordinates = [parseFloat(longitude),parseFloat(latitude)];
+
     const geodata = await geocoder.forwardGeocode({
         query: req.body.Room.location,
         limit:1
     }).send()
 
-    console.log(geodata.body.features[0].geometry.coordinates);
-
     const room = new Room(req.body.Room);
+    room.geometry = geodata.body.features[0].geometry;
+    room.geometry.coordinates = markedCordinates;
     room.image =  req.files.map(f=>({ url:f.path , filename:f.filename }))
     room.author = req.user._id;
     await room.save()
+    console.log(room);
     req.flash('sucess','Sucessfully added new room');
     res.redirect(`/room/${room._id}`);
 }
 
 module.exports.showRoom =async (req,res)=>{
     
+
     const {id} = req.params;
     const room = await Room.findById(id).populate({
         path :'reviews',
@@ -58,9 +65,9 @@ module.exports.updateRoom = async (req,res)=>{
 
     if(req.body.deleteImages){
 
-        // for(let filename of req.body.deleteImages){
-        //     await cloudinary.uploader.destroy(filename);
-        // }
+        for(let filename of req.body.deleteImages){
+            await cloudinary.uploader.destroy(filename);
+        }
         await room.updateOne({$pull:{image:{filename:{$in : req.body.deleteImages}}}})
         
     }

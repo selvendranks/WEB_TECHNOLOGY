@@ -36,13 +36,13 @@
                     <input type="file" name="image" multiple>
                 </div> -->
                 <div class="mb-1 input-group-sm">
-                    <label class="form-label">Price</label>
+                    <label class="form-label">Price/day</label>
                     <div class="input-group mb-3">
-                        <span class="input-group-text">$</span>
+                        <span class="input-group-text">&#8377</span>
                         <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" required
-                            name="Room[price]" value="<%= room.price %>">
+                            name="Room[price]" value="<%= room.price %>" min="0">
                             <div class="invalid-feedback">
-                                Required
+                                is not valid
                               </div>
                     </div>
                 </div>

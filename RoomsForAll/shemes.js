@@ -7,7 +7,9 @@ module.exports.RoomSchema =
             price: Joi.number().required().min(0),
            // image: Joi.string().required(),
             location: Joi.string().required(),
-            description: Joi.string().required()
+            description: Joi.string().required(),
+            longitude : Joi.number(),
+            latitude : Joi.number()
         }).required()
     })
 

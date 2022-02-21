@@ -74,6 +74,10 @@ app.use('/',Users);
 app.use('/room',rooms);
 app.use('/room/:id/review',reviews);
 
+app.get('/',(req,res)=>{
+    res.render('home.ejs');
+})
+
 app.all('*',(req,res,next)=>{
     res.render('errors.ejs',{error:'something went wrong'});
 })

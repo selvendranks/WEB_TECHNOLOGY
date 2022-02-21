@@ -1,7 +1,12 @@
 <%layout('layouts/boilerplate')%>
    <link rel="stylesheet" href="/stylesheets/stars.css">
+
     <div class="row">
+    
         <div class="col-lg-6">
+          
+            
+
             <div class="card mb-3" style="width: 25rem;">
         
                 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
@@ -12,7 +17,9 @@
                         <img src="<%= img.url %>" class="d-block w-100" alt="...">
                       </div>
                       <% }) %> 
-                      <% } %> 
+                      <% } else{%>
+                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/450px-No_image_available.svg.png?20190827162820" alt="" class="card-img-top">
+                        <% } %>  
                     </div>
                     <% if(room.image.length>1){ %> 
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -57,6 +64,7 @@
         </div>
         <% if (currentUser) {%>
             <div class="col-lg-6 col-md-8">
+                <div id='map' style='width: 400px; height: 300px;'></div>
                 <h2>Leave a review</h2>
                 <div>
                     <form action="http://localhost:5000/room/<%= room.id %>/review" method="post" class="mb-3 validated"
@@ -108,3 +116,11 @@
             </div>
             <% } %>
     </div>
+
+    <script>
+        const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
+        const room = <%- JSON.stringify(room) %>
+    </script>
+
+   <script src="/javascript/showPageMap.js">
+   </script>

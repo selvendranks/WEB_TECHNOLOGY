@@ -18,18 +18,26 @@
                     </div>
                 </div>
                 
+                <div id="map" style='width: 400px; height: 300px;'></div>
+                <pre id="coordinates" class="coordinates"></pre>
+                
+                <div class="mb-1 input-group-sm">
+                <label class="form-label">Coordinates</label>
+                <input type="number" name="Room[longitude]" step="any" id="longitude" class="form-control" >
+                <input type="number" name="Room[latitude]" step="any" id="latitude" class="form-control" >
+                </div>
                 <!-- <div class="mb-1 input-group-sm">
                     <label for="">upload image</label>
                     <input type="file" name="image" multiple>
                 </div> -->
                 <div class="mb-1 input-group-sm">
-                    <label class="form-label">Price</label>
+                    <label class="form-label">Price/day</label>
                     <div class="input-group mb-3">
-                        <span class="input-group-text">$</span>
+                        <span class="input-group-text">&#8377</span>
                         <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)"
-                            name="Room[price]" required>
+                            name="Room[price]" min="0" required >
                         <div class="invalid-feedback">
-                            Required
+                            is not valid
                         </div>
                     </div>
                 </div>
@@ -65,3 +73,10 @@
         </div>
         <button>submit</button>
     </form> -->
+
+    <script>
+        const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
+    </script>
+
+<script src="/javascript/dragableMap.js">
+</script>

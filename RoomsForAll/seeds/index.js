@@ -30,6 +30,7 @@ const seedDB = async () => {
                 filename: 'RoomsForAll/os8ug5qey0reaknrevby'
 
             }],
+            geometry: { type: 'Point', coordinates: [ 78.77639, 10.7875 ] },
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, neque tempora atque itaque illum doloremque nemo sunt consectetur alias exercitationem, iste, laboriosam ab facilis. Mollitia voluptatem optio corrupti eligendi odio.',
             price: `${intervalrand(200, 1100)}`
         });
@@ -41,3 +42,4 @@ const seedDB = async () => {
 seedDB().then(() => {
     mongoose.connection.close();
 });
+

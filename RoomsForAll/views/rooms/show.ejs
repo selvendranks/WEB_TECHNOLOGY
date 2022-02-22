@@ -3,7 +3,7 @@
 
     <div class="row">
     
-        <div class="col-lg-6">
+        <div class="col-md-6">
           
             
 
@@ -63,11 +63,11 @@
             </div>
         </div>
         <% if (currentUser) {%>
-            <div class="col-lg-6 col-md-8">
+            <div class="col-md-6">
                 <div id='map' style='width: 400px; height: 300px;'></div>
                 <h2>Leave a review</h2>
                 <div>
-                    <form action="http://localhost:5000/room/<%= room.id %>/review" method="post" class="mb-3 validated"
+                    <form action="/room/<%= room.id %>/review" method="post" class="mb-3 validated"
                         novalidate>
                         <fieldset class="starability-growRotate" required>
                             <legend>Rating:</legend>

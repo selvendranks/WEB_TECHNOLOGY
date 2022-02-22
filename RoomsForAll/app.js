@@ -2,6 +2,7 @@ if(process.env.NODE_ENV !== "production"){
     require('dotenv').config()
 }
 
+
 console.log(process.env.SECRET)
 console.log(process.env.API_KEY)
 
@@ -11,6 +12,11 @@ const ejsMate = require('ejs-mate');
 const session = require('express-session');
 const methodOverride = require('method-override');
 const mongoSanitize = require('express-mongo-sanitize')
+
+const MongoStore = require("connect-mongo");
+
+// process.env.DB_URL
+const dbUrl =  process.env.DB_URL || 'mongodb://localhost:27017/Rooms';
 
 const rooms = require('./routes/rooms');
 const reviews = require('./routes/reviews')
@@ -29,15 +35,23 @@ app.engine('ejs',ejsMate);
 app.use(express.urlencoded({extended : true}));
 app.use(methodOverride('_method'));
 
+const secret = process.env.SECRET || 'goodsecret'
+
 const sessionConfig = { 
     name: 'session',
-    secret :'goodsecret',
+    secret : secret,
     resave:false,
     saveUninitialized:true ,
     cookie:{
         httpOnly : true,
         expires: Date.now() + 1000*60*60*24, //expires in a day
-    }
+    },
+    store:MongoStore.create({
+        
+            mongoUrl : dbUrl,
+            touchAfter: 24*60*60
+        
+    })
 }
 app.use(session(sessionConfig));
 app.use(flash());
@@ -58,7 +72,9 @@ app.use((req,res,next)=>{
 
 app.use(mongoSanitize());
 
-mongoose.connect('mongodb://localhost:27017/Rooms')
+'mongodb://localhost:27017/Rooms'
+
+mongoose.connect(dbUrl)
 .then(()=>{
     console.log("connected")
 })

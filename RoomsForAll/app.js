@@ -6,6 +6,9 @@ if(process.env.NODE_ENV !== "production"){
 console.log(process.env.SECRET)
 console.log(process.env.API_KEY)
 
+const port = process.env.PORT ;
+// const port = 5000;
+
 const express = require('express');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
@@ -17,6 +20,7 @@ const MongoStore = require("connect-mongo");
 
 // process.env.DB_URL
 const dbUrl =  process.env.DB_URL;
+// const dbUrl = 'mongodb://localhost:27017/test';
 
 const rooms = require('./routes/rooms');
 const reviews = require('./routes/reviews')
@@ -35,11 +39,12 @@ app.engine('ejs',ejsMate);
 app.use(express.urlencoded({extended : true}));
 app.use(methodOverride('_method'));
 
-const secret = process.env.SECRET;
+const secrets = process.env.SECRET ;
+// const secrets = "good secret";
 
 const sessionConfig = { 
     name: 'session',
-    secret : secret,
+    secret : secrets,
     resave:false,
     saveUninitialized:true ,
     cookie:{
@@ -103,6 +108,6 @@ app.all('*',(req,res,next)=>{
     res.render('errors.ejs',{error:'something went wrong'});
 })
 
-app.listen(5000,()=>{
-    console.log('serving port 5000');
+app.listen(port,()=>{
+    console.log(`serving port${port}` );
 })

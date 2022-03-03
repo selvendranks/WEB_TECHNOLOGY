@@ -1,0 +1,50 @@
+<%layout('layouts/boilerplate') %>
+    <div class="row">
+        <div class="col-md-6 offset-md-3" >
+            <p class="h1">Tell us about you</p>
+            <form action="/friends" method="POST" novalidate class="validated" enctype="multipart/form-data">
+               
+
+                <div class="mb-1 input-group-sm">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="Profile[description]"></textarea>
+                    <div class="invalid-feedback">
+                        Required
+                    </div>
+                </div>
+                <div class="mb-1 input-group-sm">
+                    <label class="form-label">Phone no</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">&#x260E</span>
+                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
+                            name="Profile[phone]" min="0" required >
+                        <div class="invalid-feedback">
+                            is not valid
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-1 input-group-sm">
+                    <label class="form-label">Gender</label>
+                    <input type="text" class="form-control" name="Profile[Gender]" required>
+                    <div class="invalid-feedback">
+                        Required
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="formFileSm" class="form-label">Upload images</label>
+                    <input class="form-control form-control-sm" id="formFileSm" type="file" name="Profile[image]" single>
+                </div>
+
+                <div class="mb-1 input-group-sm">
+                    <label class="form-label">Date of Birth</label>
+                    <input type="date" class="form-control" name="Profile[dateOfBirth]" required>
+                    <div class="invalid-feedback">
+                        Required
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-info mb-2">Add profile</button>
+
+</form>
+</div>
+</div>

@@ -1,0 +1,94 @@
+<%layout('layouts/boilerplate') %>
+
+    <div class="row">
+        <h2>Your Profile</h2>
+        <div class="col-md-6 offset-md-3">
+            
+            <div class="card m-2 d-inline-block" style="width: 27rem;">
+                <img src="<%= profile.image.url %> " alt="" class="card-img-top">
+
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <%= profile.username %>
+                    </h4>
+                    <p class="card-text" style="font-size: large;"><b>Description : </b>
+                        <%= profile.description %>
+                    </p>
+                    <p class="card-text" style="font-size: large;"><b>Phone : </b>
+                        <%= profile.phone %>
+                    </p>
+                    <p class="card-text" style="font-size: large;"><b>Email : </b>
+                        <%= profile.email %>
+                    </p>
+                    <p class="card-text" style="font-size: large;"><b>Gender : </b>
+                        <%= profile.Gender %>
+                    </p>
+                    <p class="card-text" style="font-size: large;"><b>Posts : </b>
+                        <%= profile.postsNo %>
+                    </p>
+                    <p class="card-text" style="font-size: large;"><b>Followers : </b>
+                        <%= profile.followers %>
+                    </p>
+                    <p class="card-text" style="font-size: large;"><b>Following : </b>
+                        <%= profile.following %>
+                    </p>
+                    <p class="card-text" style="font-size: large;"><b>Date Of Birth : </b>
+                        <%= profile.dateOfBirth %>
+                    </p>
+                    <a href="/friends/<%= profile._id %>/edit" class="btn btn-warning"> Edit</a>
+                </div>
+            </div>
+        </div>
+            <h2>Your Posts <a href="/friends/<%= profile._id %>/post" class="btn btn-primary m-2">Add New Post</a></h2>
+            <ul>
+                <% for (let post of profile.posts) { %>
+                    <div class="card m-2 d-inline-block" style="width: 18rem;">
+    
+                            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                            
+                                <% if(post.image.length>1){ %>  
+                                <div class="carousel-indicators">
+                                    <% post.image.forEach((img,i) => { %>
+                                      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<%= i %> " class="<%= i===0 ? 'active' : '' %>" aria-current="<%= i===0 ? 'true' : '' %>"></button>
+                                    <% }) %> 
+                                  </div>
+                                <% } %> 
+                                
+                                <div class="carousel-inner">
+                                    <% post.image.forEach((img,i) => { %>
+                                  <div class="carousel-item <%= i===0 ? 'active' : '' %> ">
+                                    <img src="<%= img.url %>" class="d-block w-100" alt="...">
+                                  </div>
+                                  <% }) %> 
+                                 
+                                </div>
+                        
+                              </div>
+                    
+
+                        
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <%= post.title %>
+                            </h5>
+                            <p class="card-text">
+                                <%= post.description %>
+                            </p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item" style='font-size:1.2rem;'><b>&#9829 </b><%= post.likes %>
+                                <% if(profile.username == currentUser.username){%>
+                                <form action="/friends/<%= profile.id %>/post/<%= post.id %>?_method=DELETE"
+                                    method="post">
+                               <button class="btn btn-danger btn-sm">Delete</button>
+                               </form>
+                               <% } %> 
+                            </li>
+                        </ul>
+                    </div>
+                    <% } %>
+                    
+            </ul>
+        
+
+    </div>

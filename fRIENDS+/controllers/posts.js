@@ -25,6 +25,7 @@ module.exports.addPost = async(req,res)=>{
     const imgs =   req.files.map(f=>({ url:f.path , filename:f.filename }));
     post.image.push(...imgs);
     profile.posts.push(post);
+    profile.postsNo +=1;
     await post.save();
     await profile.save();
 

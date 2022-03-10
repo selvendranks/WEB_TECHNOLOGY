@@ -1,0 +1,24 @@
+<%layout('layouts/boilerplate') %>
+
+<h2 class="d-inline-block">Friends: </h2>
+
+<ul>
+    <%for(let prof of friends ){%>
+    <div class="card m-2 d-inline-block" style="width: 18rem;"> 
+        <img src=<%= prof.image.url %>  class="card-img-top" alt="...">
+        <div class="card-body">
+            <h4 class="card-title">
+                <%= prof.username %>
+            </h4>
+            <p class="card-text" style="font-size: large;"><b>Description : </b>
+                <%= prof.description %>
+            </p>
+            <p class="card-text" style="font-size: large;">
+            <form action="/friends/<%= prof._id %>">
+            <button class="btn-sm btn-primary">View Profile</button>
+            </form>
+            </p>
+        </div>
+    </div>
+    <% } %> 
+</ul>

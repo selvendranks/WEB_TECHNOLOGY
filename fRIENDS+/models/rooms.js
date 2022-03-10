@@ -19,10 +19,6 @@ const profileSchema = new Shema({
        type: String,
        require:true
     },
-    phone:{
-        type:String,
-        require:true
-    },
     Gender:{
       type:String,
       require: true
@@ -34,20 +30,15 @@ const profileSchema = new Shema({
     postsNo:{ type:Number,
            default:0
     },
-    followers:{
-      type:Number,
-      default:0
-    },
-    following:{
-      type:Number,
-      default:0
-    },
     dateOfBirth:{
       type:String,
       default:0
     },
     friends:[{
-        type:String,
+      type:String
+    }],
+    friendRequest:[{
+      type:String
     }],
     author:{
          type:mongoose.Schema.Types.ObjectId,

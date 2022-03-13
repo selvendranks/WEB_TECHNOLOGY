@@ -1,5 +1,4 @@
 const User = require('../models/user');
-const Review = require('../models/review')
 const Room = require('../models/rooms');
 const Profile = require('../models/rooms');
 
@@ -144,5 +143,5 @@ module.exports.showFriends = async(req,res)=>{
    }
 
    res.render('friends/friends.ejs',{friends})
-
+  
 }

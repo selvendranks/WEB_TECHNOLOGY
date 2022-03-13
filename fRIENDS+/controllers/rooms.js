@@ -8,7 +8,9 @@ const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({accessToken:mapBoxToken})
 
 module.exports.index = async(req,res)=>{
-    const profile = await Profile.findOne({username: req.user.username}).populate({
+
+    const {id} = req.params;
+    var profile = await Profile.findById(id).populate({
         path :'posts',
         populate:{
             path:'reviews',
@@ -17,6 +19,20 @@ module.exports.index = async(req,res)=>{
             }
         }
     }).populate('author');
+    if(profile != null){
+        profile.postsNo = profile.posts.length;
+    res.render('profile/index.ejs',{profile});
+    }
+    var profile = await Profile.findOne({username: req.user.username}).populate({
+        path :'posts',
+        populate:{
+            path:'reviews',
+            populate:{
+                path: 'author'
+            }
+        }
+    }).populate('author');
+    profile.postsNo = profile.posts.length;
     res.render('profile/index.ejs',{profile});
  }
 
@@ -53,6 +69,7 @@ module.exports.showRoom =async (req,res)=>{
             }
         }
     }).populate('author');
+    
     if(!profile){
         console.log('nulled');
         req.flash('error','Cannot find your profile register again');

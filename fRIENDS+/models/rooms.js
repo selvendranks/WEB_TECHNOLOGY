@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Shema = mongoose.Schema;
-const Review = require('./review');
+
 
 const opts = {toJSON:{virtuals:true}};
 const profileSchema = new Shema({ 

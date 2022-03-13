@@ -1,6 +1,5 @@
 const Post = require('../models/posts');
-const { findById } = require('../models/review');
-const Review = require('../models/review');
+
 const Profile = require('../models/rooms');
 const User = require('../models/user');
 const { post } = require('../routes/rooms');
@@ -25,7 +24,7 @@ module.exports.addPost = async(req,res)=>{
     const imgs =   req.files.map(f=>({ url:f.path , filename:f.filename }));
     post.image.push(...imgs);
     profile.posts.push(post);
-    profile.postsNo +=1;
+    profile.postsNo = profile.posts.length;
     await post.save();
     await profile.save();
 
@@ -49,4 +48,57 @@ module.exports.deletePost = async (req,res)=>{
     await Post.findByIdAndDelete(postid);
     req.flash('sucess','Sucessfully deleted the review')
     res.redirect(`/friends/${id}`);
+}
+
+module.exports.addlike = async(req,res)=>{
+    
+   
+    const {id,postid} = req.params;
+    const post = await Post.findById(postid);
+    console.log(post.likes);
+    if(!post.likes.includes(req.user.username)){
+        post.likes.push(req.user.username);
+    }
+    post.save();
+    // res.send(post);
+    var profile = await Profile.findById(id).populate({
+        path :'posts',
+        populate:{
+            path:'reviews',
+            populate:{
+                path: 'author'
+            }
+        }
+    }).populate('author');
+
+    res.render('profile/index.ejs',{profile});
+    
+    
+}
+
+module.exports.addComment = async(req,res)=>{
+    
+    const {body} = req.body.review;
+    const {id,postid} = req.params;
+  
+
+    const post = await Post.findOneAndUpdate({_id:postid},{$push:{reviews:{body:body,author:req.user.username}}},{new:true});
+    
+   
+    
+    // console.log(comment);
+
+    
+    res.redirect(`/friends/${id}`);
+    // res.send(profile);
+    // res.render('profile/index.ejs',{profile});
+
+}
+
+module.exports.deleteComment =  async(req,res)=>{
+
+    const {id,postid,reviewid} = req.params;
+    await Post.findOneAndUpdate({_id:postid},{$pull:{reviews:{_id:reviewid}}},{new:true});
+    res.redirect(`/friends/${id}`);
+
 }

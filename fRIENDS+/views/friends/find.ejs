@@ -21,8 +21,8 @@
                 </p>
                 <%var i=0; for(request of prof.friendRequest) { if(currentUser.username == request) {i=1; break;} else{i=0}}%> 
                 <% var j=0; for(friend of prof.friends) { if(currentUser.username == friend) {j=1; break; } else{j=0}}%>  
-                    <% if(j==1){ %>
-                       <a href="/friends/<%= prof._id %>" class="btn btn-primary btn-sm">View Profile</a>
+                    <% if(j==1){ console.log("prof.username") %>
+                       <a href="/friends/<%= prof._id %>" class="btn btn-primary btn-sm"><%= prof.username %></a>
                        <% } else if(i==0){%> 
                     
                       <a href="/friends/<%= prof._id %>/yourfriends/addFriend" class="btn btn-primary btn-sm">Add friend</a>

@@ -11,13 +11,15 @@ const postSchema = new Schema({
          type :String},
     description: {
             type :String},
-    likes:{
-        type:Number,
-        default:0
-    },
+    likes:[{
+        type:String
+    }],
     reviews:[{
-        type: Schema.Types.ObjectId,
-        ref : 'Review'
+        body: {
+            type :String},
+       author:{
+           type:String
+       }
     }]
 });
 

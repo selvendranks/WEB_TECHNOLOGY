@@ -25,25 +25,28 @@ const extension = (joi)=>({
 
 const Joi = BaseJoi.extend(extension);
 
-module.exports.RoomSchema =
+module.exports.ProfileSchema =
     Joi.object({     //Joi  schema to validate input
-        Room: Joi.object({
-            title: Joi.string().required().escapeHTML(),
-            price: Joi.number().required().min(0),
-           // image: Joi.string().required(),
-            location: Joi.string().required().escapeHTML(),
+        Profile: Joi.object({
             description: Joi.string().required().escapeHTML(),
-            longitude : Joi.string().escapeHTML(),
-            latitude : Joi.string().escapeHTML(),
-            vacancy: Joi.string()
-        }).required()
+            visibilty: Joi.string().required(),
+            Gender: Joi.string().required(),
+            dateOfBirth: Joi.string().required().escapeHTML(),
+        })
     })
 
     
-module.exports.reviewSchema = 
+module.exports.PostSchema= 
      Joi.object({
-         review: Joi.object({
-            body : Joi.string().required().escapeHTML(),
-            rating: Joi.number().required().min(1)
+         Post: Joi.object({
+            title : Joi.string().required().escapeHTML(),
+            description: Joi.string().required().escapeHTML()
          }).required()
      })
+
+module.exports.ReviewSchema=
+    Joi.object({
+        review: Joi.object({
+          body: Joi.string().required().escapeHTML()
+        }).required()
+    })

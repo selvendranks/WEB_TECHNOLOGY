@@ -14,8 +14,11 @@
                 <%= prof.description %>
             </p>
             <p class="card-text" style="font-size: large;">
-            <form action="/friends/<%= prof._id %>">
+            <form class="d-inline-block" action="/friends/<%= prof._id %>">
             <button class="btn-sm btn-primary">View Profile</button>
+            </form>
+            <form class="d-inline-block"action="/friends/<%= prof._id %>/yourfriends/removeFriend">
+                <button class="btn-sm btn-danger">Remove Friend</button>
             </form>
             </p>
         </div>

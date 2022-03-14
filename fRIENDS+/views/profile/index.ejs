@@ -9,7 +9,7 @@
             
         <div class="col-md-6 offset-md-3">
             
-            <div class="card m-2 d-inline-block" style="width: 27rem;">
+            <div class="card m-2 d-inline-block">
                 <img src="<%= profile.image.url %> " alt="" class="card-img-top">
 
                 <div class="card-body">
@@ -19,10 +19,7 @@
                     <p class="card-text" style="font-size: large;"><b>Description : </b>
                         <%= profile.description %>
                     </p>
-                    
-                    <p class="card-text" style="font-size: large;"><b>Email : </b>
-                        <%= profile.email %>
-                    </p>
+    
                     <p class="card-text" style="font-size: large;"><b>Gender : </b>
                         <%= profile.Gender %>
                     </p>
@@ -47,16 +44,16 @@
                 <a href="/friends/<%= profile._id %>/post" class="btn btn-primary m-2">Add New Post</a>
                <% } %> 
             </h2>
-            <ul>
+            
                 <%for (let post of profile.posts) {%>
-                    <div class="card m-2 d-inline-block" style="width: 18rem;">
+                    <div class="card m-2 d-inline-block " id="postwidth">
     
                             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                             
                                 <% if(post.image.length>1){ %>  
                                 <div class="carousel-indicators">
                                     <% post.image.forEach((img,i) => { %>
-                                      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<%= i %> " class="<%= i===0 ? 'active' : '' %>" aria-current="<%= i===0 ? 'true' : '' %>"></button>
+                                      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<%= i %>" class="<%= i===0 ? 'active' : '' %>" aria-current="<%= i===0 ? 'true' : '' %>"></button>
                                     <% }) %> 
                                   </div>
                                 <% } %> 
@@ -70,7 +67,7 @@
                                  
                                 </div>
                         
-                              </div>
+                            </div>
                     
 
                         
@@ -82,9 +79,9 @@
                                 <%= post.description %>
                             </p>
                         </div>
-                        <ul class="list-group list-group-flush">
+                        <div style="padding: 10px;">
                             <% if(profile.username == currentUser.username){%>
-                            <li class="list-group-item" style='font-size:1.2rem;'><b>&#9829 </b><%= post.likes.length %>
+                            <li style='font-size:1.2rem; list-style-type: none;'><b>&#9829 </b><%= post.likes.length %>
                             <% }else {%> 
                                 <div>
                                 <form action="/friends/<%=profile.id %>/post/<%= post.id %>/like" method="post">
@@ -111,9 +108,8 @@
                                <% } %> 
                             </li>
                             
-                        </ul>
-                        <ul>
-            
+                            <div class="mb-2">
+                            <% if(post.reviews.length>0){ %> 
                                 <%for(let review of post.reviews){ %>
                                 
                                             <p class="card-text"><b><%= review.author %></b> : <%= review.body %>  
@@ -121,20 +117,30 @@
                                                 <a class="btn-sm btn-danger" style="text-decoration: none;" href="/friends/<%= profile.id %>/post/<%= post.id %>/deletecomment/<%=review.id%>">Delete</a> 
                                             </p>
                             
-                                        <% } }%> 
+                                        <% } }} else{ %>
+                                            
+                                             <p class="card-text"> no comments yet </p> 
+                                             <% } %> 
                                     
-                                
-                            
+                            </div> 
+                            </div>
                     
                     </div>
                     <% } %>
                     
-            </ul>
+            
         
 
     </div>
 
     <style>
+        @media  (min-width:1000px){
+          
+            #postwidth{
+                width: 21rem;
+            }
+
+        }
         .btn-pink{
             color: antiquewhite;
             background-color: rgba(255, 0, 106, 0.747);
@@ -144,3 +150,4 @@
             background-color: rgb(255, 0, 106);
         }   
      </style>
+

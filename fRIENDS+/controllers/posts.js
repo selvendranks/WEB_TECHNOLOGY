@@ -1,8 +1,8 @@
 const Post = require('../models/posts');
 
-const Profile = require('../models/rooms');
+const Profile = require('../models/profile');
 const User = require('../models/user');
-const { post } = require('../routes/rooms');
+const { post } = require('../routes/profile');
 const {cloudinary} = require('../cloudinary');
 
 
@@ -46,7 +46,7 @@ module.exports.deletePost = async (req,res)=>{
 
 //    await Room.findByIdAndUpdate(id,{$pull:{reviews:reviewid}});  //deletes the object in array of reviews which has reviewid
     await Post.findByIdAndDelete(postid);
-    req.flash('sucess','Sucessfully deleted the review')
+    req.flash('sucess','Sucessfully deleted your post')
     res.redirect(`/friends/${id}`);
 }
 

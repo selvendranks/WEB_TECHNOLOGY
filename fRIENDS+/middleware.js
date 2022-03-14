@@ -1,6 +1,6 @@
 
-const Room = require('./models/rooms');
-const {RoomSchema,reviewSchema} = require('./shemes');
+const Room = require('./models/profile');
+
 
 const isloggedin = (req,res,next)=>{
     console.log("req user",req.user);
@@ -39,10 +39,10 @@ const isReviewAuthor = async(req,res,next)=>{
 
 module.exports.isReviewAuthor = isReviewAuthor;
 
-const validateRoom = (req,res,next)=>{
+const validateProfile = (req,res,next)=>{
     
     console.log(req.body);
-    const {error} = RoomSchema.validate(req.body);
+    const {error} = ProfileSchema.validate(req.body);
     if(error){ 
         const msg = error.details.map(el=> el.message);
         req.session.returnTo = req.originalUrl;
@@ -53,19 +53,27 @@ const validateRoom = (req,res,next)=>{
     }
 }
  
-module.exports.validateRoom = validateRoom;
+module.exports.validateProfile = validateProfile;
+
+const validatePost = (req,res,next)=>{
+
+    const  {error} = PostSchema.validate(req.body);
+    if(error){
+        console.log(error);
+        const msg = error.details.map(el=> el.message);
+        res.render('errors.ejs',{error:msg});
+
+    }
+    else{
+        next();
+    }
+}
+
+module.exports.validatePost = validatePost;
 
 const validateReview = (req,res,next)=>{
-    const {id} = req.params;
-    const {rating} = req.body.review;
-     if(rating == "0"){
-        req.flash('error','Rating must be atleast 1 star');
-        
-       return res.redirect(`/room/${id}`);
-     }
 
-    console.log(req.body);
-    const  {error} = reviewSchema.validate(req.body);
+    const  {error} = ReviewSchema.validate(req.body);
     if(error){
         console.log(error);
         const msg = error.details.map(el=> el.message);
@@ -78,3 +86,4 @@ const validateReview = (req,res,next)=>{
 }
 
 module.exports.validateReview = validateReview;
+

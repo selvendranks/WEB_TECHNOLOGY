@@ -1,6 +1,6 @@
 const User = require('../models/user');
-const Room = require('../models/rooms');
-const Profile = require('../models/rooms');
+const Room = require('../models/profile');
+const Profile = require('../models/profile');
 
 module.exports.renderRegisterForm = (req,res)=>{
     res.render('users/register');
@@ -41,4 +41,11 @@ module.exports.logoutUser = (req,res)=>{
     req.logOut();
     req.flash('sucess','sucessfully logged out');
     res.redirect('/');
+}
+
+module.exports.renderOtp = async(req,res)=>{
+    
+    res.render('users/otp.ejs');
+    
+
 }

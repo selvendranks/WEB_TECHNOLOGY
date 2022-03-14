@@ -22,7 +22,7 @@ const MongoStore = require("connect-mongo");
 // const dbUrl =  process.env.DB_URL;
 const dbUrl = 'mongodb://localhost:27017/Friend';
 
-const rooms = require('./routes/rooms');
+const profile = require('./routes/profile');
 const post = require('./routes/post')
 const Users = require('./routes/user');
 const yourfriends = require('./routes/yourfriends')
@@ -98,7 +98,7 @@ app.get('/fakeuser',async (req,res)=>{
 app.set('view engine','ejs');
 
 app.use('/',Users);
-app.use('/friends',rooms);
+app.use('/friends',profile);
 app.use('/friends/:id/post',post);
 app.use('/friends/:id/yourfriends',yourfriends)
 

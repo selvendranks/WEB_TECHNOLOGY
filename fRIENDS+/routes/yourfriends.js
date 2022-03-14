@@ -7,14 +7,16 @@ router.use(express.urlencoded({extended : true}));
 const methodOverride = require('method-override');
 router.use(methodOverride('_method'));
 const yourfriends = require('../controllers/yourfriends');
+const { isloggedin} = require('../middleware');
 
 
-router.get('/',catchAsync(yourfriends.showFriends));
-router.get('/new',catchAsync(yourfriends.findPeople));
-router.get('/find',catchAsync(yourfriends.showPeople));
-router.get('/viewProfile',catchAsync(yourfriends.viewPeople));
-router.get('/addFriend',catchAsync(yourfriends.addPeople));
-router.get('/friendRequest',catchAsync(yourfriends.friendRequest));
-router.get('/decisions',catchAsync(yourfriends.decision));
+router.get('/',isloggedin,catchAsync(yourfriends.showFriends));
+router.get('/new',isloggedin,catchAsync(yourfriends.findPeople));
+router.get('/find',isloggedin,catchAsync(yourfriends.showPeople));
+router.get('/viewProfile',isloggedin,catchAsync(yourfriends.viewPeople));
+router.get('/addFriend',isloggedin,catchAsync(yourfriends.addPeople));
+router.get('/friendRequest',isloggedin,catchAsync(yourfriends.friendRequest));
+router.get('/decisions',isloggedin,catchAsync(yourfriends.decision));
+router.get('/removeFriend',isloggedin,catchAsync(yourfriends.removeFriends));
 
 module.exports = router;

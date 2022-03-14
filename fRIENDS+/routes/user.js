@@ -14,5 +14,6 @@ router.route('/login')
       .get(catchAsync(users.renderLoginForm))
       .post(passport.authenticate('local',{failureFlash: true, failureRedirect: '/login'}),catchAsync(users.loginUser))
 
+
 router.get('/logout',users.logoutUser)
 module.exports = router;

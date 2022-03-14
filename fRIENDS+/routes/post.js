@@ -1,6 +1,6 @@
 const express = require('express');
 const catchAsync = require('../utils/catchAsync');
-const {validateReview,isloggedin,isReviewAuthor} = require('../middleware')
+const { isloggedin} = require('../middleware');
 const router = express.Router({mergeParams:true});
 router.use(express.urlencoded({extended : true}));
 const methodOverride = require('method-override');
@@ -22,7 +22,7 @@ router.delete('/:postid',isloggedin,catchAsync(posts.deletePost));
 
 router.post('/:postid/like',isloggedin,catchAsync(posts.addlike));
 
-router.post('/:postid/addComment',catchAsync(posts.addComment));
+router.post('/:postid/addComment',isloggedin,catchAsync(posts.addComment));
 
-router.get('/:postid/deletecomment/:reviewid',catchAsync(posts.deleteComment));
+router.get('/:postid/deletecomment/:reviewid',isloggedin,catchAsync(posts.deleteComment));
 module.exports = router;

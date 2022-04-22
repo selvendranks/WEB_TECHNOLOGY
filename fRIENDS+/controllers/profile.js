@@ -38,7 +38,7 @@ module.exports.index = async(req,res)=>{
 
 module.exports.addNewProfile = async (req,res)=>{
 
-    // res.send(req.body)
+    //  res.send(req.body.sub)
     const profile = new Profile(req.body.Profile);
     profile.username = req.user.username;
     profile.email = req.user.email;

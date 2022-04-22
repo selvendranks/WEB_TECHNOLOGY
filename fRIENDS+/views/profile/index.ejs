@@ -46,7 +46,7 @@
             </h2>
             
                 <%for (let post of profile.posts) {%>
-                    <div class="card m-2 d-inline-block " id="postwidth">
+                    <div class="card m-2 d-inline-block" id="postwidth">
     
                             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                             
@@ -69,8 +69,9 @@
                         
                             </div>
                     
-
-                        
+                            <% if(profile.username != currentUser.username){%>
+                                <a class="card-action" href="/friends/<%=profile.id %>/post/<%= post.id %>/like" style="text-decoration : none"><i class="fa fa-heart"></i> <%= post.likes.length %></a>
+                            <% } %> 
                         <div class="card-body">
                             <h5 class="card-title">
                                 <%= post.title %>
@@ -83,11 +84,7 @@
                             <% if(profile.username == currentUser.username){%>
                             <li style='font-size:1.2rem; list-style-type: none;'><b>&#9829 </b><%= post.likes.length %>
                             <% }else {%> 
-                                <div>
-                                <form action="/friends/<%=profile.id %>/post/<%= post.id %>/like" method="post">
-                                    <button class="btn-sm btn-pink"  style='font-size:1.2rem;text-decoration: none;'><b>&#9829</b></button>Likes: <%= post.likes.length %>
-                                </form>
-                                </div>
+                               
                                 <div>
                                   <form action="/friends/<%=profile.id %>/post/<%= post.id %>/addComment" method="post">
                                     <label class="form-label" for="review">Add Review:</label>
@@ -134,13 +131,26 @@
     </div>
 
     <style>
+
+@media  (min-width:200px){
+          
+          #postwidth{
+              width: 20rem;
+              position: relative;
+              left: 11px;
+          }
+
+      }
+
         @media  (min-width:1000px){
           
             #postwidth{
-                width: 21rem;
+                width: 26rem;
             }
 
         }
+          
+
         .btn-pink{
             color: antiquewhite;
             background-color: rgba(255, 0, 106, 0.747);
@@ -148,6 +158,58 @@
         .btn-pink:hover{
             color: maroon;
             background-color: rgb(255, 0, 106);
-        }   
+        }  
+        
+         /*  Helper Styles */
+
+
+    /* Card Styles */
+
+  
+    .card-action {
+        position: relative;
+        float: right;
+        margin-top: -25px;
+        margin-right: 20px;
+        z-index: 2;
+        color: #E26D5C;
+        background: #fff;
+        border-radius: 100%;
+        padding: 15px;
+        font-size: 15px;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);
+        border-color: white;
+    }
+
+    .card-action:hover {
+        color: #fff;
+        background: #E26D5C;
+        -webkit-animation: pulse 1.5s infinite;
+    }
+    @-webkit-keyframes pulse {
+        0% {
+            -moz-transform: scale(0.9);
+            -ms-transform: scale(0.9);
+            -webkit-transform: scale(0.9);
+            transform: scale(0.9);
+        }
+
+        70% {
+            -moz-transform: scale(1);
+            -ms-transform: scale(1);
+            -webkit-transform: scale(1);
+            transform: scale(1);
+            box-shadow: 0 0 0 50px rgba(90, 153, 212, 0);
+        }
+
+        100% {
+            -moz-transform: scale(0.9);
+            -ms-transform: scale(0.9);
+            -webkit-transform: scale(0.9);
+            transform: scale(0.9);
+            box-shadow: 0 0 0 0 rgba(90, 153, 212, 0);
+        }
+    }
+    
      </style>
 

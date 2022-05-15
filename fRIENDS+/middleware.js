@@ -1,5 +1,5 @@
 
-const Room = require('./models/profile');
+const Profile = require('./models/profile');
 
 
 const isloggedin = (req,res,next)=>{
@@ -12,6 +12,24 @@ const isloggedin = (req,res,next)=>{
     next();
 }
 
+const isAuthor = async(req,res,next)=>{
+    const {id} = req.params;
+    const profile = await Profile.findById(id);
+    console.log(req.user);
+    if(profile.username!=req.user.username){
+        req.flash("error","you dont have permission");
+        return res.redirect(`/room/${id}`);
+    }
+    next();
+}
+
+const refreshPage = (req,res,next)=>{
+    req.session.refresh = req.originalUrl;
+    next()
+}
+
+module.exports.isAuthor = isAuthor;
 
 module.exports.isloggedin = isloggedin;
 
+module.exports.refreshPage = refreshPage;

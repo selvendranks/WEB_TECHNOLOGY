@@ -1,6 +1,6 @@
 const express = require('express');
 const catchAsync = require('../utils/catchAsync');
-const { isloggedin} = require('../middleware');
+const { isloggedin,refreshPage} = require('../middleware');
 const router = express.Router({mergeParams:true});
 router.use(express.urlencoded({extended : true}));
 const methodOverride = require('method-override');

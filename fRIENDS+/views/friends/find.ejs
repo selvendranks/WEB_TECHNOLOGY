@@ -7,11 +7,11 @@
     <button type="submit"><i class="fa fa-search"></i></button>
 </form>
 
-<ul>
+
      
     <%for(let prof of profiles ){ if(prof.username!=currentUser.username){%>
-        <div class="card m-2 d-inline-block" style="width: 18rem;"> 
-            <img src=<%= prof.image.url %>  class="card-img-top" alt="...">
+        <div class="card m-2 d-inline-block" style="width: 20rem; "> 
+            <img src=<%= prof.image.url %>  class="card-img-top"  style='max-height: 350px' alt="...">
             <div class="card-body">
                 <h4 class="card-title">
                     <%= prof.username %>
@@ -46,7 +46,7 @@
             </div>
         </div>
      <%}}%>
-</ul>
+
 
 
   <style>

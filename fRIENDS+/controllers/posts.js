@@ -29,7 +29,7 @@ module.exports.addPost = async(req,res)=>{
     await profile.save();
 
     req.flash('sucess','Sucessfully added your post');
-    res.redirect(`/friends/${profile.id}`);
+    res.redirect(req.session.refresh)
 
 }
 
@@ -47,7 +47,7 @@ module.exports.deletePost = async (req,res)=>{
 //    await Room.findByIdAndUpdate(id,{$pull:{reviews:reviewid}});  //deletes the object in array of reviews which has reviewid
     await Post.findByIdAndDelete(postid);
     req.flash('sucess','Sucessfully deleted your post')
-    res.redirect(`/friends/${id}`);
+    res.redirect(req.session.refresh)
 }
 
 module.exports.addlike = async(req,res)=>{
@@ -71,7 +71,8 @@ module.exports.addlike = async(req,res)=>{
         }
     }).populate('author');
 
-    res.render('profile/index.ejs',{profile});
+    // res.render('profile/index.ejs',{profile});
+    res.redirect(req.session.refresh)
     
     
 }
@@ -89,7 +90,7 @@ module.exports.addComment = async(req,res)=>{
     // console.log(comment);
 
     
-    res.redirect(`/friends/${id}`);
+    res.redirect(req.session.refresh)
     // res.send(profile);
     // res.render('profile/index.ejs',{profile});
 
@@ -99,6 +100,6 @@ module.exports.deleteComment =  async(req,res)=>{
 
     const {id,postid,reviewid} = req.params;
     await Post.findOneAndUpdate({_id:postid},{$pull:{reviews:{_id:reviewid}}},{new:true});
-    res.redirect(`/friends/${id}`);
+    res.redirect(req.session.refresh)
 
 }

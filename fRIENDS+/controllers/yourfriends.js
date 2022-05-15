@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const Room = require('../models/profile');
 const Profile = require('../models/profile');
+const Post = require('../models/posts');
 
 module.exports.findPeople = async(req,res)=>{
     
@@ -64,7 +65,8 @@ module.exports.addPeople = async(req,res)=>{
     profile.save();
     }
     req.flash('sucess','friend request sent');
-    res.redirect(`/friends/${req.user._id}/yourfriends/new`);
+    // res.redirect(`/friends/${req.user._id}/yourfriends/new`);
+    res.redirect(req.session.refresh)
 
 }
 
@@ -174,3 +176,62 @@ module.exports.removeFriends = async(req,res)=>{
     res.redirect(`/friends/${req.user._id}/yourfriends`)
 
 }
+
+module.exports.seefeeds = async(req,res)=>{
+    
+    ///////////////////////////////funciton to shuffle list
+
+    function shuffle(array) {
+        let currentIndex = array.length,  randomIndex;
+      
+        // While there remain elements to shuffle.
+        while (currentIndex != 0) {
+      
+          // Pick a remaining element.
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex--;
+      
+          // And swap it with the current element.
+          [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+        }
+      
+        return array;
+      }
+
+
+
+    ////////////////////////////////searching friends
+    const yourprofile = await Profile.findOne({username: req.user.username})
+    const friends = yourprofile.friends
+    
+    ///////////////////////////////searching for public accounts
+    const publicprofile = await Profile.find({visibilty: "public"})
+    const publicaccount = publicprofile.map(x=>x.username)
+    
+    //////////////////////////////combining the usernames for feed and remove duplicates
+
+    const feedProfile = [...new Set(friends.concat(publicaccount))]
+    const index = feedProfile.indexOf(req.user.username);
+    if (index > -1) {
+    feedProfile.splice(index, 1); // 2nd parameter means remove one item only
+    }
+
+    var profile = await Profile.find({username:{$in:feedProfile}}).populate({
+        path :'posts',
+        populate:{
+            path:'reviews',
+            populate:{
+                path: 'author'
+            }
+        }
+    }).populate('author');
+    console.log(profile)
+    
+    profile = shuffle(profile)
+
+    res.render('friends/feeds.ejs',{Profile : profile})
+
+    
+}
+

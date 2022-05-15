@@ -19,7 +19,13 @@
            <% } %> 
           </li>
         
-        
+          <li class="nav-item">
+            <% try{ %> 
+            <a class="nav-link" href="/friends/<%= currentUser._id %>/yourfriends/feeds">Feeds</a>
+            <% } catch(e){ %> 
+            <a class="nav-link" href="/"></a>
+            <% } %> 
+          </li>
         
         <li class="nav-item">
           <% try{ %> 
@@ -44,6 +50,8 @@
           <a class="nav-link" href="/"></a>
           <% } %> 
         </li>
+
+
 
       </ul>
       <ul class="navbar-nav ms-auto">

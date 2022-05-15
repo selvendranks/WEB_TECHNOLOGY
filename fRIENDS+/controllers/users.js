@@ -33,8 +33,15 @@ module.exports.registerUser = async (req,res)=>{
 module.exports.loginUser = async(req,res)=>{
     req.flash("sucess","Welcome back");
     const profile = await Profile.findOne({username : req.user.username});
+    // res.redirect('/friends/new');
+    
     // res.render('profile/index.ejs',{profile});
+    try{
     res.redirect(`/friends/${profile._id}`);
+    }
+    catch(e){
+    res.redirect('/friends/new')
+    }
 }
 
 module.exports.logoutUser = (req,res)=>{
